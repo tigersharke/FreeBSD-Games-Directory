@@ -13,6 +13,9 @@ Once this has a framework, at least a few games with their table items, other Fr
 ### Sundry formats - ideas
 - reasonable screenshot size/res: 1280x1024?
 - Initial description pulled directly from port pkg-descr file.
-- possible enhanced description added
+- can the comment from their Makefile be parsed for inclusion?
+- can a general directory list be pulled from the ports directory and used as a starting point?
+- how shall the contents be organized?  Seperate directories?
+- verbose description unique to the directory, maybe include external links there?
 - tags, categories, other sort labels
 - more
