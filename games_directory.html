@@ -1,115 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-
-th {
-background-color:#999;
-text-align: center;
-}
-table.main th, table.main td {
-	border-collapse: collapse;
-	border: none;
-	border:1.5px solid black;
-	padding: 3px;
-}
-table.main {
-	width: 97vw;
-	border-collapse: collapse;
-	border: none;
-	margin-left: -4px;
-}
-table.main td {text-align: left;
-border:1.5px solid black;
-border-collapse: collapse;
-}
-
-table.main tr {border-top:1.5px solid black; max-width: max-content;}
-table.main tr:nth-child(2n):hover{background-color: #efef44;}
-table.main tr:nth-child(2n+1):hover{background-color: #dfdf44;}
-table.main tr:nth-child(2n){background-color:#eee;}
-table.main tr:nth-child(2n+1){background-color:#ddd;}
-
-table.footer {
-max-height: max-content;
-position: fixed;
-width: 97vw;
-bottom: 0vh;
-margin-left: 0.5vw;
-margin-right: auto;
-z-index: 600;
-border-collapse: collapse;
-border: none;
-}
-
-table.footer tr:nth-child(2n+1) {
-background-color: rgb(150, 150, 150);
-border:1.4px solid black;
-border-bottom:1.8px solid black;
-}
-
-table.footer tr:nth-child(2n){
-height: 2em;
-background-color: white;
-border:3px solid white;
-border-top: 1.8px solid black;
-}
-
-#myInput {
-  width: 22vw;
-  font-size: 16px;
-  padding: 3px;
-  border: 1px solid #ddd;
-  margin:3px;
-  display: block;
-}
-
-div.myInput {
-  display: inline-block;
-}
-div.hidecol {
-padding: 3px;
-display: inline-block;
-}
-
-div.hideform {
-border:1px solid black;
-margin-left: 5px;
-margin-right: 5px;
-max-width: max-content;
-padding: 3px;
-display: inline-block;
-}
-
-div.header{
-z-index:600;
-height: 9.5vh;
-width: 96.7vw;
-position: fixed;
-top: 0.5vh;
-background-color: rgb(150, 150, 150);
-padding-bottom: 1.05vh;
-padding-left: 3px;
-margin-left: 0.5vw;
-margin-right: auto;
-border-top:1.5px solid black;
-border-left:1.5px solid black;
-border-right:1.5px solid black;
-}
-
-div.main{
-display:block;
-position: absolute;
-top: 11vh;
-height: 85vh;
-}
-
-span.formlabel {
-font-weight: 600;
-font-style: italic;
-font-size: 14px;
-}
-</style>
+<title>FreeBSD Games Directory</title>
 <script>
 function FilterFunction() {
   // Declare variables
@@ -221,9 +113,149 @@ headers.forEach(function(th, index) {
 });
 </script>
 
+
+<style>
+
+body{
+background-color: white;
+}
+table.main {
+	border-collapse: collapse;
+	border: none!important;
+	font-size: 1.1em;
+	position: relative;
+	width: calc(11.5px + 97vw);
+	left: -4.5px;
+}
+table.main th {
+background-color:#999;
+text-align: center;
+border:1.5px solid black;
+background-color: beige;
+}
+table.main th, table.main td {
+	padding: 3px;
+}
+table.main td {
+text-align: left;
+border:1.5px solid black;
+max-width: max-content;
+}
+table.main tr {border:none; padding: none;}
+table.main tr:nth-child(2n):hover{background-color: #efef44;}
+table.main tr:nth-child(2n+1):hover{background-color: #dfdf44;}
+table.main tr:nth-child(2n){background-color:#eee;}
+table.main tr:nth-child(2n+1){background-color:#ddd;}
+
+table.footer {
+max-height: max-content;
+position: fixed;
+width: 100%;
+bottom: 0vh;
+margin: 0 auto;
+z-index: 600;
+border-collapse: collapse;
+border: none;
+width: calc(11.5px + 97vw);
+}
+table.footer tr:nth-child(2n+1) {
+background-color: rgb(150, 150, 150);
+border:1.4px solid black;
+border-bottom:1.8px solid black;
+}
+table.footer tr:nth-child(2n+1) td {
+padding-left: 3px;
+}
+table.footer tr:nth-child(2n){
+height: 2em;
+background-color: white;
+border:3px solid white;
+border-top: 1.8px solid black;
+}
+table.footer td {
+border:none;
+max-width: max-content;
+}
+
+#myInput {
+  width: 22vw;
+  font-size: 16px;
+  padding: 3px;
+  border: 1px solid #ddd;
+  margin:3px;
+  display: block;
+}
+div.myInput {
+display: inline-block;
+}
+
+div.hidecol {
+padding: 3px;
+display: inline-block;
+}
+div.hideform {
+border:1px solid black;
+margin-left: 5px;
+margin-right: 5px;
+max-width: max-content;
+padding: 3px;
+display: inline-block;
+}
+
+div.header{
+z-index:600;
+position: fixed;
+top: 0.5vh;
+background-color: rgb(150, 150, 150);
+/* padding-bottom: 1.05vh; */
+padding-left: 3px;
+margin: 0;
+border-top:1.5px solid black;
+border-left:1.5px solid black;
+border-right:1.5px solid black;
+width: calc(5.5px + 97vw);
+}
+div.footer {
+z-index:600;
+position: fixed;
+width: 100%;
+margin: 0 auto;
+}
+
+div.main{
+padding-left: 3px;
+margin: 0 auto;
+z-index: 500;
+position: relative;
+}
+
+span.comment {
+positon: relative;
+max-height: max-content;
+width: max-content;
+font-style: italic;
+font-size: 1.05em;
+top: 30px;
+display: block;
+z-index: 600;
+}
+
+h1 {
+z-index: 600;
+}
+
+span.formlabel {
+font-weight: 600;
+font-style: italic;
+font-size: 1.2em;
+}
+</style>
 </head>
 <body>
+<div class="body">
+<header>
 <div class="header">
+<span class="comment">A bit more detail in an easy form for those things we have in ports..</span>
 <h1>FreeBSD Games Directory</h1>
 <div class="hidecol">
 <form id="hidecol">
@@ -238,9 +270,10 @@ headers.forEach(function(th, index) {
   <div class="hideform"><label for="shot">Screenshot</label><input type="checkbox" id="shot" name="visibility" value="none"></div>
   <div class="hideform"><label for="anim">Animation</label><input type="checkbox" id="anim" name="visibility" value="none"></div>
 </form>
-</div>
+</div> <!-- hidecol -->
 <div class="myInput"><input type="text" id="myInput" onkeyup="FilterFunction()" placeholder="Search for Game names.."></div>
 <table class="main" id="myTable">
+<tbody>
 <tr class="header">
 <th onclick="sortTable(0)">Game name</th>
 <th onclick="sortTable(1)">Executable name</th>
@@ -253,8 +286,8 @@ headers.forEach(function(th, index) {
 <th onclick="sortTable(8)">Screenshot</th>
 <th onclick="sortTable(9)">Animation</th>
 </tr>
-</div>
-<div class="main">
+</div> <!-- header -->
+</header>
 <tr>
 	<td>minetest</td>
 	<td>minetest</td>
@@ -363,17 +396,22 @@ headers.forEach(function(th, index) {
 	<td>z screenshot</td>
 	<td>animation</td>
 </tr>
+</tbody>
 </table>
-</div>
-</body>
+</div> <!-- body -->
 <footer>
+<div class="footer">
 <table class="footer">
+<tbody>
 <tr>
-<td>Obtain an updated <em>Games Directory</em> or <a href="https://github.com/users/tigersharke/projects/1">join in community involvement</a> to update or enhance it.</td>
+<td><a href="https://github.com/tigersharke/FreeBSD-Games-Directory.git">Obtain an updated <em>Games Directory</em></a> or <a href="https://github.com/users/tigersharke/projects/1">join in community involvement</a> to update or enhance it.</td>
 </tr>
 <tr>
 <td>&nbsp;&nbsp;&nbsp;</td>
 </tr>
+</tbody>
 </table>
+</div> <!-- footer -->
 </footer>
+</body>
 </html>
