@@ -1,6 +1,6 @@
 # FreeBSD Games Directory
 ## Synopsis
-This is for the moment, little more than an idea, for a collection of screenshots, animated gifs of play, sample configurations for varying levels of performance, along with descriptions, all for the games available via the FreeBSD ports system.
+This idea is a collection of screenshots, animated gifs of play, sample configurations for varying levels of performance, along with descriptions, all for the games available via the FreeBSD ports system.
 
 ### Preliminary format
 - An html interface will permit fairly easy sort functions in a table and provide access to other features via web browser.
