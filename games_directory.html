@@ -114,6 +114,8 @@ headers.forEach(function(th, index) {
 </script>
 
 <style>
+a { color: initial; text-decoration: none; border-bottom:1.5px solid blue;}
+a:hover { color: blue; text-decoration: underline; border-bottom: none; }
 
 body{
 background-color: white;
@@ -136,10 +138,20 @@ table.main th, table.main td {
 	padding: 3px;
 }
 table.main td {
-text-align: left;
-border:1.5px solid black;
-max-width: max-content;
+	text-align: left;
+	border:1.5px solid black;
+	max-width: max-content;
+	text-wrap: normal!important;
+	word-wrap: break-word!important;
+	overflow-wrap: break-word!important;
+	white-space: pre-wrap!important;
 }
+
+table.main td:nth-child(2) {
+white-space: pre-wrap!important;
+word-wrap: break-word!important;
+}
+
 table.main tr {border:none; padding: none;}
 table.main tr:nth-child(2n):hover{background-color: #efef44;}
 table.main tr:nth-child(2n+1):hover{background-color: #dfdf44;}
@@ -164,6 +176,7 @@ border-bottom:1.8px solid black;
 }
 table.footer tr:nth-child(2n+1) td {
 padding-left: 3px;
+padding-bottom: 6px;
 }
 table.footer tr:nth-child(2n){
 height: 2em;
@@ -259,12 +272,13 @@ font-size: 1.2em;
 <div class="hidecol">
 <form id="hidecol">
   <span class="formlabel">Hide Columns:&nbsp;</span>
-  <div class="hideform"><label for="exec">Executable</label><input type="checkbox" id="exec" name="visibility" value="none"></div>
   <div class="hideform"><label for="port">Port name</label><input type="checkbox" id="port" name="visibility" value="none"></div>
+  <div class="hideform"><label for="exec">Executable</label><input type="checkbox" id="exec" name="visibility" value="none"></div>
   <div class="hideform"><label for="pkgn">Pkg name</label><input type="checkbox" id="pkgn" name="visibility" value="none"></div>
   <div class="hideform"><label for="type">Type</label><input type="checkbox" id="type" name="visibility" value="none"></div>
   <div class="hideform"><label for="subt">Sub-type</label><input type="checkbox" id="subt" name="visibility" value="none"></div>
   <div class="hideform"><label for="long">Long description</label><input type="checkbox" id="long" name="visibility" value="none"></div>
+  <div class="hideform"><label for="long">Makefile Comment</label><input type="checkbox" id="long" name="visibility" value="none"></div>
   <div class="hideform"><label for="verb">Verbose description</label><input type="checkbox" id="verb" name="visibility" value="none"></div>
   <div class="hideform"><label for="shot">Screenshot</label><input type="checkbox" id="shot" name="visibility" value="none"></div>
   <div class="hideform"><label for="anim">Animation</label><input type="checkbox" id="anim" name="visibility" value="none"></div>
@@ -275,20 +289,21 @@ font-size: 1.2em;
 <tbody>
 <tr class="header">
 <th onclick="sortTable(0)">Game name</th>
-<th onclick="sortTable(1)">Executable name</th>
-<th onclick="sortTable(2)">Port name</th>
+<th onclick="sortTable(1)">Port name</th>
+<th onclick="sortTable(2)">Executable(s)</th>
 <th onclick="sortTable(3)">Pkg name</th>
 <th onclick="sortTable(4)">Type</th>
 <th onclick="sortTable(5)">Sub-type(s)</th>
-<th onclick="sortTable(6)">Port: Long description</th>
-<th onclick="sortTable(7)">Verbose Description</th>
+<th onclick="sortTable(6)">Port: Makefile Comment</th>
+<th onclick="sortTable(6)">Port: Long Description</th>
+<th onclick="sortTable(7)">Supplemental information</th>
 <th onclick="sortTable(8)">Screenshot</th>
 <th onclick="sortTable(9)">Animation</th>
 </tr>
 </div> <!-- header -->
 </header>
 <!-- inserted html -->
- <script src="tablerows.js"></script>
+ <script src="./tablerows.js"></script>
 <!-- inserted html end -->
 </tbody>
 </table>
