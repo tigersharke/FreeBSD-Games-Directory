@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FreeBSD Games Directory</title>
+<script>
+function FilterFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those which don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc";
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Each time a switch is done, increase this count by 1:
+      switchcount ++;
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+const menu = document.getElementById('hidecol');
+const table = document.getElementById('myTable');
+const headers = [].slice.call(table.querySelectorAll('th'));
+
+headers.forEach(function (th, index) {
+    // Build the menu item
+    const li = document.createElement('li');
+    const label = document.createElement('label');
+    const checkbox = document.createElement('input');
+    checkbox.setAttribute('type', 'checkbox');
+
+    // Create the text node
+    const text = document.createTextNode(th.textContent);
+
+    label.appendChild(checkbox);
+    label.appendChild(text);
+
+    li.appendChild(label);
+    menu.appendChild(li);
+});
+
+//To toggle the column when clicking the checkbox, we have to handle the change event:
+
+headers.forEach(function(th, index) {
+    // Build the menu item
+    ...
+    // Handle the event
+    checkbox.addEventListener('change', function(e) {
+        e.target.checked ? showColumn(index) : hideColumn(index);
+    });
+});
+</script>
+
+<style>
+a { color: initial; text-decoration: none; border-bottom:1.5px solid blue;}
+a:hover { color: blue; text-decoration: underline; border-bottom: none; }
+
+body{
+background-color: white;
+}
+
+table {
+display: inline-table;
+flex-direction: row;
+}
+
+table.main {
+	border-collapse: collapse;
+	border: none!important;
+	font-size: 1.1em;
+	position: relative;
+}
+
+table.main th {
+	text-align: center;
+	border:1.5px solid black;
+	background-color: beige;
+}
+header,
+div.header,
+table.main tr:nth-child(1){
+}
+
+table.main th, table.main td {padding: 3px;}
+table.main td {
+	text-align: left;
+	border:1.5px solid black;
+	word-wrap: break-word!important;
+	white-space: pre-wrap!important;
+}
+table.main td img {
+max-width: 100%;
+}
+
+table.main tr {border:none;}
+table.main tr:nth-child(2n){background-color:#eee;}
+table.main tr:nth-child(2n):hover{background-color: #efef99;}
+table.main tr:nth-child(2n+1){background-color:#ddd;}
+table.main tr:nth-child(2n+1):hover{background-color: #dfdf99;}
+
+#myInput {
+  width: 22vw;
+  font-size: 16px;
+  padding: 3px;
+  border: 1px solid #ddd;
+  margin:3px;
+  display: inline-block;
+}
+div.myInput {
+display: inline-block;
+}
+
+div.hidecol {
+padding: 3px;
+display: inline-block;
+}
+div.hideform {
+border:1px solid black;
+margin-left: 5px;
+margin-right: 5px;
+max-width: max-content;
+padding: 3px;
+display: inline-block;
+}
+
+div.header{
+max-width: 98%;
+position: absolute;
+top: 0.5vh;
+background-color: rgb(150, 150, 150);
+padding-left: 3px;
+padding-right: 3px;
+margin: 0px 0px 8px 0px;
+border-top:1.5px solid black;
+border-left:1.5px solid black;
+border-right:1.5px solid black;
+}
+
+div.footer {
+padding-top: 0.15vh;
+padding-bottom: 0.15vh;
+margin-bottom: 8px;
+height: calc(max-content + 0.3vh);
+}
+
+span.comment {
+max-height: max-content;
+width: max-content;
+font-style: italic;
+font-size: 1.05em;
+top: 30px;
+display: block;
+}
+
+span.formlabel {
+font-weight: 600;
+font-style: italic;
+font-size: 1.2em;
+}
+
+th.column1 {
+	width: 9em;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+th.column2 {
+	width: 9em;
+	flex-grow: 1;
+	flex-shrink: 1.5;
+}
+
+th.column3 {
+	width: 6em;
+	flex-grow: 1;
+	flex-shrink: 1.5;
+}
+
+th.column4 {
+	width: 6em;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+th.column5 {
+	width: 6em;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+th.column6 {
+	width: 6em;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+th.column7 {
+	width: 12em;
+	flex-grow: 1;
+	flex-shrink: 1.2;
+}
+
+th.column8 {
+	width: 20em;
+	flex-grow: 1;
+	flex-shrink: 3;
+}
+
+th.column9 {
+	width: 12em;
+	flex-grow: 1;
+	flex-shrink: 1.2;
+}
+
+th.column10 {
+	width: 15em;
+	flex-grow: 1;
+	flex-shrink: 3;
+
+}
+
+th.column11 {
+	width: 15em;
+	flex-grow: 1;
+	flex-shrink: 3;
+}
+
+div.table {
+	max-width: 100%;
+	border: 2px solid transparent;
+	display: block;
+	position: relative;
+	top: 0px;
+	margin-right: 3px;
+	margin-left: 1px;
+	/*left: -3px;*/
+}
+</style>
+</head>
+<body>
+<header>
+<div class="header">
+<span class="comment">A bit more detail in an easy form for those things we have in ports..</span>
+<h1>FreeBSD Games Directory</h1>
+<div class="hidecol">
+<form id="hidecol">
+  <span class="formlabel">Hide Columns:&nbsp;</span>
+  <div class="hideform"><label for="port">Port name</label><input type="checkbox" id="port" name="visibility" value="none"></div>
+  <div class="hideform"><label for="exec">Executable</label><input type="checkbox" id="exec" name="visibility" value="none"></div>
+  <div class="hideform"><label for="pkgn">Pkg name</label><input type="checkbox" id="pkgn" name="visibility" value="none"></div>
+  <div class="hideform"><label for="type">Type</label><input type="checkbox" id="type" name="visibility" value="none"></div>
+  <div class="hideform"><label for="subt">Sub-type</label><input type="checkbox" id="subt" name="visibility" value="none"></div>
+  <div class="hideform"><label for="long">Long description</label><input type="checkbox" id="long" name="visibility" value="none"></div>
+  <div class="hideform"><label for="long">Makefile Comment</label><input type="checkbox" id="long" name="visibility" value="none"></div>
+  <div class="hideform"><label for="verb">Verbose description</label><input type="checkbox" id="verb" name="visibility" value="none"></div>
+  <div class="hideform"><label for="shot">Screenshot</label><input type="checkbox" id="shot" name="visibility" value="none"></div>
+  <div class="hideform"><label for="anim">Animation</label><input type="checkbox" id="anim" name="visibility" value="none"></div>
+</form>
+</div> <!-- hidecol -->
+<div class="myInput"><input type="text" id="myInput" onkeyup="FilterFunction()" placeholder="Search for Game names.."></div>
+<div class="table">
+<!-- <div class="buffer">&nbsp;</div> -->
+<table class="main" id="myTable">
+<tr class="header">
+<th class="column1" onclick="sortTable(0)" >Game name</th>
+<th class="column2" onclick="sortTable(1)" >Port name</th>
+<th class="comumn3" onclick="sortTable(2)" >Executable(s)</th>
+<th class="column4" onclick="sortTable(3)" >Pkg name</th>
+<th class="column5" onclick="sortTable(4)" >Type</th>
+<th class="column6" onclick="sortTable(5)" >Sub-type(s)</th>
+<th class="column7" onclick="sortTable(6)" >Port: Makefile Comment</th>
+<th class="column8" onclick="sortTable(6)" >Port: Long Description</th>
+<th class="column9" onclick="sortTable(7)" >Supplemental information</th>
+<th class="column10" onclick="sortTable(8)" >Screenshot</th>
+<th class="column11" onclick="sortTable(9)" >Animation</th>
+</tr>
+</div> <!-- header -->
+</header>
+<!-- Generated html -->
+
+ 
