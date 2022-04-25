@@ -21,9 +21,10 @@ This idea is a collection of screenshots, animated gifs of play, sample configur
 Once this has a framework, at least a few games with their table items, other FreeBSD users are welcome to add.
 
 ### Use (at present)
-Simply, as root for /var/tmp access: ./games_directory_top.html
+First obtain the content of this repo by your preferred method, then simply, as root for /var/tmp access: ./games_directory_top.html
 #### What happens
-The ports_games_rows.sh shellscript will generate the middle portion of the html file and then concatenate the three, games_directory_top.html, /var/tmp/tablerows.html, and games_directory_bottom.html together.
+The ports_games_rows.sh shellscript will generate the middle portion of the html file and then concatenate the three together: games_directory_top.html, /var/tmp/tablerows.html, and games_directory_bottom.html.
+
 View the resulting table with your web browser of choice.  
 
-Testing done via firefox, other browser functionality unknown but attempt to use standards while expecting newer versions of browsers would be used.
+###### Testing done via firefox, other browser functionality unknown but attempt to use standards while expecting newer versions of browsers would be used.
