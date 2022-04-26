@@ -1,0 +1,5 @@
+game=3dc
+pkg=3dc
+maintype=board
+subtype=strategy
+supplemental=-

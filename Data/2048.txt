@@ -1,0 +1,5 @@
+game=2048
+pkg=2048
+maintype=puzzle
+subtype=-
+supplemental=-

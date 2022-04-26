@@ -1,0 +1,5 @@
+game=0verkill
+pkg=0verkill
+maintype=PVP
+subtype=2D
+supplemental=empty

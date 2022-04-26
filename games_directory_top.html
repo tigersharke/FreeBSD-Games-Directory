@@ -119,11 +119,12 @@ a:hover { color: blue; text-decoration: underline; border-bottom: none; }
 
 body{
 background-color: white;
+font-family: "Palatino Linotype", Palatino, Palladio, "URW Palladio L", "Book Antiqua", Baskerville, "Bookman Old Style", "Bitstream Charter", "Nimbus Roman No9 L", Garamond, "Apple Garamond", "ITC Garamond Narrow", "New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia, serif;
 }
 
 table {
-display: inline-table;
-flex-direction: row;
+	display: inline-table;
+	flex-direction: row;
 }
 
 table.main {
@@ -144,11 +145,16 @@ table.main tr:nth-child(1){
 }
 
 table.main th, table.main td {padding: 3px;}
-table.main td {
+
+table, th, td, tr {
 	text-align: left;
 	border:1.5px solid black;
 	word-wrap: break-word!important;
 	white-space: pre-wrap!important;
+	font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+   	font-weight: normal;
+   	font-style: normal;
+	line-height: initial;
 }
 table.main td img {
 max-width: 100%;

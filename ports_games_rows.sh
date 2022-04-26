@@ -16,20 +16,64 @@ ls -l /usr/ports/games/*/distinfo | cut -w -f 9 | sed -e "s:/distinfo::1" >> /va
 for path in `cat /var/tmp/gamelist_directory`
 do
 portname=`echo -n $path | sed -e "s:Makefile::1" -e  "s:/usr/ports/games/::1"` 
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Setup Image directories
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+dir=./Images/animation/$portname
+if [ -d "$dir" ] && files=$(ls -qAH -- "$dir") && [ -z "$files" ]; then
+  printf '%s\n' "$dir is an empty directory"
+else
+if [ -d "$dir" ]; then
+ printf '%s\n' "$dir already exists"
+else
+ mkdir $dir
+fi
+fi
+
+dir=./Images/screenshot/$portname
+if [ -d "$dir" ] && files=$(ls -qAH -- "$dir") && [ -z "$files" ]; then
+  printf '%s\n' "$dir is an empty directory"
+else
+if [ -d "$dir" ]; then
+ printf '%s\n' "$dir already exists"
+else
+ mkdir $dir
+fi
+fi
+
+#if [ -d "$dir" ] && files=$(ls -qAH -- "$dir") && [ -z "$files" ]; then
+#  printf '%s\n' "$dir is an empty directory"
+#else
+#  printf >&2 '%s\n' "$dir is not empty, or is not a directory" \
+#                    "or is not readable or searchable in which case" \
+#                    "you should have seen an error message from ls above."
+#fi
+#
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# --- Fill in data
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+game=`cat ./Data/$portname.txt | grep game= | sed -e 's:game=\t::1' -e 's:game= ::1' -e 's:game=::1'`
+pkg=`cat ./Data/$portname.txt | grep pkg= | sed -e 's:pkg=\t::1' -e 's:pkg= ::1' -e 's:pkg=::1'`
+maintype=`cat ./Data/$portname.txt | grep maintype= | sed -e 's:maintype=\t::1' -e 's:maintype= ::1' -e 's:maintype=::1'`
+subtype=`cat ./Data/$portname.txt | grep subtype= | sed -e 's:subtype=\t::1' -e 's:subtype= ::1' -e 's:subtype=::1'`
+supplemental=`cat ./Data/$portname.txt | grep supplemental= | sed -e 's:supplemental=\t::1' -e 's:supplemental= ::1' -e 's:supplemental=::1'`
+
 echo "<tr>" >> /var/tmp/tablerows.html
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Game name
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo -n "<td>" >> /var/tmp/tablerows.html
-if [ -f "gamename/"$portname"_gamename.txt" ]; then
-echo -n "<object type=\"text/plain\" data=\"gamename/"$portname"_gamename.txt\"/>" >> /var/tmp/tablerows.html
+if [ -f "./Data/$portname.txt" ]; then
+echo "<td>"$game"</td>" >> /var/tmp/tablerows.html
 else
-echo -n "Missing, please create appropriate<br>" >> /var/tmp/tablerows.html
-echo -n "gamename/"$portname"_gamename.txt<br>" >> /var/tmp/tablerows.html
+echo -n "<td>" >> /var/tmp/tablerows.html
+echo -n "Missing, please create<br>" >> /var/tmp/tablerows.html
+echo -n "./Data/"$portname".txt<br>" >> /var/tmp/tablerows.html
 echo -n "and submit to project." >> /var/tmp/tablerows.html
-fi
 echo "</td>" >> /var/tmp/tablerows.html
+fi
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Port name
@@ -72,22 +116,17 @@ echo "</td>">> /var/tmp/tablerows.html
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Pkg name
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo -n "<td>" >> /var/tmp/tablerows.html
-echo "</td>" >> /var/tmp/tablerows.html
+echo "<td>"$pkg"</td>" >> /var/tmp/tablerows.html
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Type
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo -n "<td>" >> /var/tmp/tablerows.html
-echo -n "<object type=\"text/plain\" data=\"type/"$portname"_type.txt\"/>" >> /var/tmp/tablerows.html
-echo "</td>" >> /var/tmp/tablerows.html
+echo "<td>"$maintype"</td>" >> /var/tmp/tablerows.html
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Sub-type(s)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo -n "<td>" >> /var/tmp/tablerows.html
-echo -n "<object type=\"text/plain\" data=\"subtype/$portname_subtype.txt\"/>" >> /var/tmp/tablerows.html
-echo "</td>" >> /var/tmp/tablerows.html
+echo "<td>"$subtype"</td>" >> /var/tmp/tablerows.html
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Makefile comment
@@ -99,14 +138,15 @@ echo "<td>"`cat $path/Makefile | grep COMMENT= | sed -e 's:COMMENT=\t::1' -e 's:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo "<td>"`cat $path/pkg-descr | sed -e 's:* :\<br\>*\&nbsp\;:' -e 's:^- :\<br\>-\&nbsp\;:' -e 's:^$:\<br\>:' -e 's:\<br\> \<br\>:\<br\>:' -e 's:^ ::'`"</td>" >> /var/tmp/tablerows.html
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Supplemental Information
-echo -n "<td>" >> /var/tmp/tablerows.html
-echo -n "<object type=\"text/plain\" data=\"supplement/"$portname"_add.txt\"/>" >> /var/tmp/tablerows.html
-echo "</td>">> /var/tmp/tablerows.html
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+echo "<td>"$supplemental"</td>" >> /var/tmp/tablerows.html
 
 # Lazy load is nice but distracting. loading="lazy" beside alt="altname" and such.
 # --- Screenshot
 echo "<td><img id=\"screenshot\" src=\"screenshots/$portname.png\" onerror=\"this.onerror=null; this.src='drawing.svg';\" name=\"screenshot/$portname.png\" alt=\"screenshot/$portname.png\" /></td>" >> /var/tmp/tablerows.html
+
 
 # --- Animation
 echo "<td><img id=\"animation\" src=\"screenshots/$portname_anim.gif\" onerror=\"this.onerror=null; this.src='drawing.svg';\" name=\"animation/$portname.png\" alt=\"animation/$portname.png\" /></td>" >> /var/tmp/tablerows.html

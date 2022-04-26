@@ -1,0 +1,5 @@
+game=0ad
+pkg=0ad
+maintype=RTS
+subtype=-
+supplemental=-
