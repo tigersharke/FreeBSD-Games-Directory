@@ -60,7 +60,7 @@ game=`cat ./Data/$portname.txt | grep \<GAME\> | sed -e 's:<GAME>::' -e 's:<\/GA
 pkg=`cat ./Data/$portname.txt | grep \<PKG\> | sed -e 's:<PKG>::' -e 's:<\/PKG>::'`
 type=`cat ./Data/$portname.txt | grep \<TYPE\> | sed -e 's:<TYPE>::' -e 's:<\/TYPE>::'`
 subtype=`cat ./Data/$portname.txt | grep \<SUBTYPE\> | sed -e 's:<SUBTYPE>::' -e 's:<\/SUBTYPE>::'`
-supplemental=`cat ./Data/$portname.txt | grep -A 32 \<SUPPLEMENTAL\> | sed -e 's:<SUPPLEMENTAL>::' -e 's:<\/SUPPLEMENTAL>::' -e 's:<:\&lt\;:g' -e 's:>:\&gt\;:g'`
+supplemental=`cat ./Data/$portname.txt | grep -A 32 \<SUPPLEMENTAL\> | sed -e 's:<SUPPLEMENTAL>::' -e 's:<\/SUPPLEMENTAL>::' -e 's:<:\&lt\;:g' -e 's:>:\&gt\;:g' -e 's:* :\<br\>*\&nbsp\;:' -e 's: --:\<br\>--:' -e 's: -:\<br\>-:' -e 's:^--:\<br\>--:' -e 's:^$:\<br\>:' -e 's:\<br\> \<br\>:\<br\>:' -e 's:^ ::'`
 else
 game=""
 pkg=""
@@ -121,6 +121,7 @@ fi
 #fi
 #done
 #fi
+
 echo "</td>">> /var/tmp/tablerows.html
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -131,7 +132,7 @@ echo "<td>"$pkg"</td>" >> /var/tmp/tablerows.html
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Type
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo "<td>"$maintype"</td>" >> /var/tmp/tablerows.html
+echo "<td>"$type"</td>" >> /var/tmp/tablerows.html
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Sub-type(s)

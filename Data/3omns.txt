@@ -2,7 +2,9 @@
 <PKG>3omns</PKG>
 <TYPE>PVP</TYPE>
 <SUBTYPE>arcade, tile</SUBTYPE>
-<SUPPLEMENTAL>Usage: 3omns [OPTION...]
+<SUPPLEMENTAL>3omns&nbsp;--help
+
+Usage: 3omns [OPTION...]
 Old-school arcade-style tile-based bomb-dropping deathmatch jam
 
   -g, --game=MOD             Run Lua game code from MOD (default: 'base')
