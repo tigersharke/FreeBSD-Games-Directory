@@ -1,5 +1,5 @@
-game=3dc
-pkg=3dc
-maintype=board
-subtype=strategy
-supplemental=-
+<GAME>3dc</GAME>
+<PKG>3dc</PKG>
+<TYPE>board</TYPE>
+<SUBTYPE>strategy</SUBTYPE>
+<SUPPLEMENTAL>-</SUPPLEMENTAL>

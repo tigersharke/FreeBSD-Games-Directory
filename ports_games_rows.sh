@@ -7,58 +7,67 @@ rm ./games_directory.html
 fi
 
 # Too many <object> tags causes a massive load delay.
-
+# a missing ` will cause insane errors which include indicating an entirely wrong location of the error!
 # pkg-plist might be the beginning of the file name, there may be more than one depending if something like server vs client, such as xpilot-ng-server
 
-ls -l /usr/ports/games/*/distinfo | cut -w -f 9 | sed -e "s:/distinfo::1" >> /var/tmp/gamelist_directory
+ls -l /usr/ports/games/*/distinfo | cut -w -f 9 | sed -e 's:/distinfo::' > /var/tmp/gamelist_directory
  
 
 for path in `cat /var/tmp/gamelist_directory`
 do
-portname=`echo -n $path | sed -e "s:Makefile::1" -e  "s:/usr/ports/games/::1"` 
+portname=`echo -n $path | sed -e 's:/usr/ports/games/::1'` 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Setup Image directories
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-dir=./Images/animation/$portname
-if [ -d "$dir" ] && files=$(ls -qAH -- "$dir") && [ -z "$files" ]; then
-  printf '%s\n' "$dir is an empty directory"
-else
-if [ -d "$dir" ]; then
- printf '%s\n' "$dir already exists"
-else
- mkdir $dir
-fi
-fi
-
-dir=./Images/screenshot/$portname
-if [ -d "$dir" ] && files=$(ls -qAH -- "$dir") && [ -z "$files" ]; then
-  printf '%s\n' "$dir is an empty directory"
-else
-if [ -d "$dir" ]; then
- printf '%s\n' "$dir already exists"
-else
- mkdir $dir
-fi
-fi
-
+#dir=./Images/animation/$portname
 #if [ -d "$dir" ] && files=$(ls -qAH -- "$dir") && [ -z "$files" ]; then
 #  printf '%s\n' "$dir is an empty directory"
 #else
-#  printf >&2 '%s\n' "$dir is not empty, or is not a directory" \
-#                    "or is not readable or searchable in which case" \
-#                    "you should have seen an error message from ls above."
+#if [ -d "$dir" ]; then
+# printf '%s\n' "$dir already exists"
+# echo $portname >> ./animskip.txt
+#else
+# mkdir $dir
 #fi
-#
+#fi
+
+##rm /var/tmp/cleaned_blacklist 2>/dev/null
+##grep -v \# ~/Symbolic_Links/13amd64-blacklist | sort -d -u >> /var/tmp/cleaned_blacklist
+##
+##diff $1 /var/tmp/cleaned_blacklist | grep \< |sed  -e 's/^<\ //g' -e 's/---//g' -e '1d' > ~/$1-deblack
+##
+##echo $1-deblack
+
+#dir=./Images/screenshot/$portname
+#if [ -d "$dir" ] && files=$(ls -qAH -- "$dir") && [ -z "$files" ]; then
+#  printf '%s\n' "$dir is an empty directory"
+#else
+#if [ -d "$dir" ]; then
+# printf '%s\n' "$dir already exists"
+# echo $portname >> ./shotskip.txt
+#else
+# mkdir $dir
+#fi
+#fi
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Fill in data
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-game=`cat ./Data/$portname.txt | grep game= | sed -e 's:game=\t::1' -e 's:game= ::1' -e 's:game=::1'`
-pkg=`cat ./Data/$portname.txt | grep pkg= | sed -e 's:pkg=\t::1' -e 's:pkg= ::1' -e 's:pkg=::1'`
-maintype=`cat ./Data/$portname.txt | grep maintype= | sed -e 's:maintype=\t::1' -e 's:maintype= ::1' -e 's:maintype=::1'`
-subtype=`cat ./Data/$portname.txt | grep subtype= | sed -e 's:subtype=\t::1' -e 's:subtype= ::1' -e 's:subtype=::1'`
-supplemental=`cat ./Data/$portname.txt | grep supplemental= | sed -e 's:supplemental=\t::1' -e 's:supplemental= ::1' -e 's:supplemental=::1'`
+# Supposed to be what I need but doesn't work:  sed -n '/<VirtualHost*/,/<\/VirtualHost>/p'
+if [ -f "./Data/$portname.txt" ]; then
+game=`cat ./Data/$portname.txt | grep \<GAME\> | sed -e 's:<GAME>::' -e 's:<\/GAME>::'`
+pkg=`cat ./Data/$portname.txt | grep \<PKG\> | sed -e 's:<PKG>::' -e 's:<\/PKG>::'`
+type=`cat ./Data/$portname.txt | grep \<TYPE\> | sed -e 's:<TYPE>::' -e 's:<\/TYPE>::'`
+subtype=`cat ./Data/$portname.txt | grep \<SUBTYPE\> | sed -e 's:<SUBTYPE>::' -e 's:<\/SUBTYPE>::'`
+supplemental=`cat ./Data/$portname.txt | grep -A 32 \<SUPPLEMENTAL\> | sed -e 's:<SUPPLEMENTAL>::' -e 's:<\/SUPPLEMENTAL>::' -e 's:<:\&lt\;:g' -e 's:>:\&gt\;:g'`
+else
+game=""
+pkg=""
+type=""
+subtype=""
+supplemental=""
+fi
 
 echo "<tr>" >> /var/tmp/tablerows.html
 
@@ -88,14 +97,15 @@ echo "</td>">> /var/tmp/tablerows.html
 echo -n "<td>">> /var/tmp/tablerows.html
 
 if [ -f "$path/pkg-plist" ]; then
-rm /var/tmp/temp_execfiles
 cat $path/pkg-plist | cut -w -f 2 | sed -e 's:^[^bin/]*::' |grep bin/ >> /var/tmp/temp_execfiles
 for executable in `cat /var/tmp/temp_execfiles`
 do
-echo $executable | sed -e "s:bin/::g" >> /var/tmp/tablerows.html
+echo $executable | sed -e 's:bin/::g' -e 's:-:\&#8209\;:g' >> /var/tmp/tablerows.html
 done
+rm /var/tmp/temp_execfiles
 else echo "(Makefile)"  >> /var/tmp/tablerows.html
 fi
+
 #else
 #cat $path/Makefile | grep -e ^PLIST_FILES=(.*\n)*' | tr "[:space:]" "\n" | grep bin/ | sed -e "s:PLIST_FILES=::1" -e "s:{PORTNAME}:portname:1" >> /var/tmp/temp_execfiles
 #cat $path/Makefile | grep ^PLIST_FILES= '.*Untracked files(.*\n)*' | tr "[:space:]" "\n" | grep bin/ | sed -e "s:PLIST_FILES=::1" -e "s:{PORTNAME}:portname:1" >> /var/tmp/temp_execfiles
@@ -136,7 +146,7 @@ echo "<td>"`cat $path/Makefile | grep COMMENT= | sed -e 's:COMMENT=\t::1' -e 's:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Long Description
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo "<td>"`cat $path/pkg-descr | sed -e 's:* :\<br\>*\&nbsp\;:' -e 's:^- :\<br\>-\&nbsp\;:' -e 's:^$:\<br\>:' -e 's:\<br\> \<br\>:\<br\>:' -e 's:^ ::'`"</td>" >> /var/tmp/tablerows.html
+echo "<td>"`cat $path/pkg-descr | sed -e 's:* :\<br\>*\&nbsp\;:' -e 's:^- :\<br\>-\&nbsp\;:' -e 's:^$:\<br\>:' -e 's:\<br\> \<br\>:\<br\>:' -e 's:^ ::' -e 's:WWW\: :\<br\>WWW\:\&nbsp\;:g' `"</td>" >> /var/tmp/tablerows.html
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Supplemental Information

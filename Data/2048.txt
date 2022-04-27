@@ -1,5 +1,5 @@
-game=2048
-pkg=2048
-maintype=puzzle
-subtype=-
-supplemental=-
+<GAME>2048</GAME>
+<PKG>2048</PKG>
+<TYPE>puzzle</TYPE>
+<SUBTYPE>CLI</SUBTYPE>
+<SUPPLEMENTAL>-</SUPPLEMENTAL>

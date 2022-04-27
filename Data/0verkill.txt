@@ -1,5 +1,5 @@
-game=0verkill
-pkg=0verkill
-maintype=PVP
-subtype=2D
-supplemental=empty
+<GAME>0verkill</GAME>
+<PKG>0verkill</PKG>
+<TYPE>PVP</TYPE>
+<SUBTYPE>2D, ASCII</SUBTYPE>
+<SUPPLEMENTAL>-</SUPPLEMENTAL>

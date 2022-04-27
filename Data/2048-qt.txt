@@ -1,5 +1,5 @@
-game=2048-qt
-pkg=2048-qt
-maintype=puzzle
-subtype=-
-supplemental=-
+<GAME>2048-qt</GAME>
+<PKG>2048-qt</PKG>
+<TYPE>puzzle</TYPE>
+<SUBTYPE>GUI</SUBTYPE>
+<SUPPLEMENTAL>-</SUPPLEMENTAL>

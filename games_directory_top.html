@@ -149,8 +149,8 @@ table.main th, table.main td {padding: 3px;}
 table, th, td, tr {
 	text-align: left;
 	border:1.5px solid black;
-	word-wrap: break-word!important;
-	white-space: pre-wrap!important;
+	word-wrap: break-word;
+	white-space: pre-wrap;
 	font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
    	font-weight: normal;
    	font-style: normal;
@@ -225,71 +225,66 @@ font-weight: 600;
 font-style: italic;
 font-size: 1.2em;
 }
-
-th.column1 {
-	width: 9em;
-	flex-grow: 1;
-	flex-shrink: 1;
+td {
+ flex-grow: column;
+ flex-wrap: nowrap;
+ flex-grow: 1;
+ flex-shrink: 1;
+}
+/* game name */
+th.column1 td{
+	flex-basis: auto;
 }
 
-th.column2 {
-	width: 9em;
-	flex-grow: 1;
-	flex-shrink: 1.5;
+/* port name */
+th.column2 td{
+	flex-basis: auto;
 }
 
-th.column3 {
-	width: 6em;
-	flex-grow: 1;
-	flex-shrink: 1.5;
+/* executables */
+th.column3 td{
+	flex-basis: 30px;
+	word-wrap: normal;
 }
 
-th.column4 {
-	width: 6em;
-	flex-grow: 1;
-	flex-shrink: 1;
+/* pkg name */
+th.column4 td{
+	flex-basis: auto;
 }
 
-th.column5 {
-	width: 6em;
-	flex-grow: 1;
-	flex-shrink: 1;
+/* type */
+th.column5 td{
+	flex-basis: 1%;
 }
 
-th.column6 {
-	width: 6em;
-	flex-grow: 1;
-	flex-shrink: 1;
-}
-th.column7 {
-	width: 12em;
-	flex-grow: 1;
-	flex-shrink: 1.2;
+/* subtype */
+th.column6 td{
+	flex-basis: 1%;
 }
 
-th.column8 {
-	width: 20em;
-	flex-grow: 1;
-	flex-shrink: 3;
+/* comment */
+th.column7 td{
+	flex-basis: 1%;
 }
 
-th.column9 {
-	width: 12em;
-	flex-grow: 1;
-	flex-shrink: 1.2;
+/* long desc */
+th.column8 td{
+	flex-basis: 4%;
 }
 
-th.column10 {
-	width: 15em;
-	flex-grow: 1;
-	flex-shrink: 3;
-
+/* supplemental */
+th.column9, th.column9 td{
+	flex-basis: 20em;
 }
 
-th.column11 {
-	width: 15em;
-	flex-grow: 1;
-	flex-shrink: 3;
+/* anim */
+th.column10 td{
+	flex-basis: 28px;
+}
+
+/* shot */
+th.column11 td{
+	flex-basis: 28px;
 }
 
 div.table {

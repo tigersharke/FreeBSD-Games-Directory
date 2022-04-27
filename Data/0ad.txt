@@ -1,5 +1,5 @@
-game=0ad
-pkg=0ad
-maintype=RTS
-subtype=-
-supplemental=-
+<GAME>0ad</GAME>
+<PKG>0ad</PKG>
+<TYPE>RTS</TYPE>
+<SUBTYPE>-</SUBTYPE>
+<SUPPLEMENTAL>-</SUPPLEMENTAL>
