@@ -15,6 +15,8 @@ This idea is a collection of screenshots, animated gifs of play, sample configur
 - How shall the Directory specific contents be organized?  Seperate directories with portname?
 - Verbose description unique to the directory, maybe include external links there?
 - tags, categories, other sort labels
+- I suspect the pkg name and port name and game name may sometimes differ, but if they do not, the ones that stay the same canbe merged
+- At present, supplemental field is being filled with the output of -h --help or similar, this may be better its own column with supplemental as further info.
 - more
 
 ### Community involvement
