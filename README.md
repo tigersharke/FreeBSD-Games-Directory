@@ -21,9 +21,10 @@ This idea is a collection of screenshots, animated gifs of play, sample configur
 Once this has a framework, at least a few games with their table items, other FreeBSD users are welcome to add.
 
 ### Use (at present)
-First obtain the content of this repo by your preferred method, then simply: ./games_directory_top.html
+First obtain the content of this repo by your preferred method, then simply: ./ports_games_rows.sh
 
-If /var/tmp access is denied, you may need to adjust your fstab accordingly. 
+If /var/tmp access is denied, you may need to adjust your fstab accordingly.
+
 https://forums.FreeBSD.org/threads/correct-way-of-securing-tmp-and-var-tmp-in-freebsd.30864/post-171745
 #### What happens
 The ports_games_rows.sh shellscript will create a hierarchy of directories: ./Images/animation ./Images/screenshot and an empty directory for each port that does not yet have its own directory, so ./Images/animation/0ad and ./Images/screenshot/0ad for example.
