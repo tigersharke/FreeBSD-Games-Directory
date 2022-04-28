@@ -2,10 +2,10 @@
 ## Synopsis
 This idea is a collection of screenshots, animated gifs of play, sample configurations for varying levels of performance, along with descriptions, all for the games available via the FreeBSD ports system.
 
-### Preliminary concept, form
+### Present concept, form
 - An html interface will permit fairly easy sort functions in a table and provide access to other features via web browser.
 - Added links to places to obtain additional files for use with games or game engines.
-- Mechanism for translations of the html content.  Should game descriptions get translations?
+- Mechanism for translations of the html content.  How can game descriptions get translations?
 
 ### Sundry formats - ideas
 - Reasonable screenshot size/res: 1280x1024?  * except if lacking detail a larger screen size may provide.
