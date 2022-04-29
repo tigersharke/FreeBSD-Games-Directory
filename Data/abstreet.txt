@@ -1,0 +1,6 @@
+<GAME>abstreet</GAME>
+<PKG>abstreet</PKG>
+<TYPE>sim</TYPE>
+<SUBTYPE>-</SUBTYPE>
+<HELP>-</HELP>
+<SUPPLEMENTAL>-</SUPPLEMENTAL>

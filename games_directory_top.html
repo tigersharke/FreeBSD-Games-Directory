@@ -24,7 +24,8 @@ function FilterFunction() {
     }
   }
 }
-
+</script>
+<script>
 function sortTable(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById("myTable");
@@ -278,13 +279,19 @@ th.column9, th.column9 td{
 	word-wrap: normal;
 }
 
+/* help */
+th.column10, th.column10 td{
+	flex-basis: 12%;
+	word-wrap: normal;
+}
+
 /* anim */
-th.column10 td{
+th.column11 td{
 	flex-basis: 28px;
 }
 
 /* shot */
-th.column11 td{
+th.column12 td{
 	flex-basis: 28px;
 }
 
@@ -302,7 +309,7 @@ div.table {
 </head>
 <body>
 <header>
-<div class="header">
+<!-- <div class="header"> -->
 <span class="comment">A bit more detail in an easy form for those things we have in ports..</span>
 <h1>FreeBSD Games Directory</h1>
 <div class="hidecol">
@@ -313,9 +320,10 @@ div.table {
   <div class="hideform"><label for="pkgn">Pkg name</label><input type="checkbox" id="pkgn" name="visibility" value="none"></div>
   <div class="hideform"><label for="type">Type</label><input type="checkbox" id="type" name="visibility" value="none"></div>
   <div class="hideform"><label for="subt">Sub-type</label><input type="checkbox" id="subt" name="visibility" value="none"></div>
+  <div class="hideform"><label for="comm">Makefile Comment</label><input type="checkbox" id="long" name="visibility" value="none"></div>
   <div class="hideform"><label for="long">Long description</label><input type="checkbox" id="long" name="visibility" value="none"></div>
-  <div class="hideform"><label for="long">Makefile Comment</label><input type="checkbox" id="long" name="visibility" value="none"></div>
-  <div class="hideform"><label for="verb">Verbose description</label><input type="checkbox" id="verb" name="visibility" value="none"></div>
+  <div class="hideform"><label for="help">Help Output</label><input type="checkbox" id="verb" name="visibility" value="none"></div>
+  <div class="hideform"><label for="supp">Supplemental Info</label><input type="checkbox" id="verb" name="visibility" value="none"></div>
   <div class="hideform"><label for="shot">Screenshot</label><input type="checkbox" id="shot" name="visibility" value="none"></div>
   <div class="hideform"><label for="anim">Animation</label><input type="checkbox" id="anim" name="visibility" value="none"></div>
 </form>
@@ -332,12 +340,13 @@ div.table {
 <th class="column5" onclick="sortTable(4)" >Type</th>
 <th class="column6" onclick="sortTable(5)" >Sub-type(s)</th>
 <th class="column7" onclick="sortTable(6)" >Port: Makefile Comment</th>
-<th class="column8" onclick="sortTable(6)" >Port: Long Description</th>
-<th class="column9" onclick="sortTable(7)" >Supplemental information</th>
-<th class="column10" onclick="sortTable(8)" >Screenshot</th>
-<th class="column11" onclick="sortTable(9)" >Animation</th>
+<th class="column8" onclick="sortTable(7)" >Port: Long Description</th>
+<th class="column9" onclick="sortTable(8)" >Help Output</th>
+<th class="column10" onclick="sortTable(9)" >Supplemental information</th>
+<th class="column11" onclick="sortTable(10)" >Screenshot</th>
+<th class="column12" onclick="sortTable(11)" >Animation</th>
 </tr>
-</div> <!-- header -->
+<!-- </div> --> <!-- header -->
 </header>
 <!-- Generated html -->
 

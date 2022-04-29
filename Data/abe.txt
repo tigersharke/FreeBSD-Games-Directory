@@ -1,0 +1,20 @@
+<GAME>abe</GAME>
+<PKG>abe</PKG>
+<TYPE>arcadeRTS</TYPE>
+<SUBTYPE>sidescroll, simulation</SUBTYPE>
+<HELP>abe --help
+Abe!! Happy Birthday, 2002
+
+--window           Run in windowed mode.
+-e --editor        Skip the splash screen and run the editor.
+-i --intro         Edit intro map.
+-g --game          Skip the splash screen and run the game.
+-t --test          Test video modes only.
+-s --system        Use system memory instead of video(default) memory.
+--size #           Use this width/height for the video mode.
+        Modes: 0-320/200 1-320/240 2-640/400 3-640/480 4-800/600 5-1024/768 6-1280/1024 7-1600/1200
+-b --bpp #         Use this bpp for the video mode.
+--nosound          Don't use sound.
+-? -h --help       Show this help message.
+</HELP>
+<SUPPLEMENTAL>-</SUPPLEMENTAL>

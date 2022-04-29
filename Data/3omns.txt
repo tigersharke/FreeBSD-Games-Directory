@@ -2,7 +2,7 @@
 <PKG>3omns</PKG>
 <TYPE>PVP</TYPE>
 <SUBTYPE>arcade, tile</SUBTYPE>
-<SUPPLEMENTAL>3omns&nbsp;--help
+<HELP>3omns&nbsp;--help
 
 Usage: 3omns [OPTION...]
 Old-school arcade-style tile-based bomb-dropping deathmatch jam
@@ -37,4 +37,5 @@ for any corresponding short options.
 See <https://chazomaticus.github.io/3omns/> for more information.
 
 Report bugs to <chaz@chazomatic.us>.
-</SUPPLEMENTAL>
+</HELP>
+<SUPPLEMENTAL>-</SUPPLEMENTAL>

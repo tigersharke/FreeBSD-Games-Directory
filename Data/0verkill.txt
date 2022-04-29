@@ -2,9 +2,10 @@
 <PKG>0verkill</PKG>
 <TYPE>PVP</TYPE>
 <SUBTYPE>2D, ASCII</SUBTYPE>
-<SUPPLEMENTAL>0verkill&nbsp;-h
+<HELP>0verkill&nbsp;-h
 
 0verkill client.
 (c)2000 Brainsoft
 Usage: 0verkill [-h] [-3] [-s <width>x<height>]
-</SUPPLEMENTAL>
+</HELP>
+<SUPPLEMENTAL>-</SUPPLEMENTAL>

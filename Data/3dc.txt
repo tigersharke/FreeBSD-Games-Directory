@@ -2,7 +2,7 @@
 <PKG>3dc</PKG>
 <TYPE>board</TYPE>
 <SUBTYPE>strategy</SUBTYPE>
-<SUPPLEMENTAL>3Dc&nbsp;--help
+<HELP>3Dc&nbsp;--help
 
 3Dc version 0.8.1, Copyright (C) 1995,1996 Paul Hicks
 3Dc comes with ABSOLUTELY NO WARRANTY: see the GPL file for details
@@ -12,4 +12,5 @@ Usage:
 3Dc ; play 3Dc, two humans on one display
 3Dc -ad|-altdisplay [display] ; black plays on display `display'
 3Dc -play colour ; play against the computer, which plays colour
-</SUPPLEMENTAL>
+</HELP>
+<SUPPLEMENTAL>-</SUPPLEMENTAL>

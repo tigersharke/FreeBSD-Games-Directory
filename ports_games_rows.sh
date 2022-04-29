@@ -54,18 +54,41 @@ portname=`echo -n $path | sed -e 's:/usr/ports/games/::1'`
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Fill in data
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Supposed to be what I need but doesn't work:  sed -n '/<VirtualHost*/,/<\/VirtualHost>/p'
+# Supposed to be what I need but doesn't work:  
+# sed -n '/<VirtualHost*/,/<\/VirtualHost>/p'
+# sed -n '/Subject: /{:a;N;/Message-ID:/!ba; s/\n/ /g; s/\s\s*/ /g; s/.*Subject: \|Message-ID:.*//g;p}'
+# sed -n '/HOSTS:/{:a;N;/DATE/!ba;s/[[:space:]]//g;s/,/\n/g;s/.*HOSTS:\|DATE.*//g;p}'
+# -n                       # Disable printing
+# /HOSTS:/ {               # Match line containing literal HOSTS:
+#   :a;                    # Label used for branching (goto)
+#   N;                     # Added next line to pattern space
+#   /DATE/!ba              # As long as literal DATE is not matched goto :a
+#   s/.*HOSTS:\|DATE.*//g; # Remove everything in front of and including literal HOSTS:
+#                          # and remove everything behind and including literal DATE 
+#   s/[[:space:]]//g;      # Replace spaces and newlines with nothing
+#   s/,/\n/g;              # Replace comma with newline
+#   p                      # Print pattern space
+# }
+
 if [ -f "./Data/$portname.txt" ]; then
 game=`cat ./Data/$portname.txt | grep \<GAME\> | sed -e 's:<GAME>::' -e 's:<\/GAME>::'`
 pkg=`cat ./Data/$portname.txt | grep \<PKG\> | sed -e 's:<PKG>::' -e 's:<\/PKG>::'`
 type=`cat ./Data/$portname.txt | grep \<TYPE\> | sed -e 's:<TYPE>::' -e 's:<\/TYPE>::'`
 subtype=`cat ./Data/$portname.txt | grep \<SUBTYPE\> | sed -e 's:<SUBTYPE>::' -e 's:<\/SUBTYPE>::'`
-supplemental=`cat ./Data/$portname.txt | grep -A 32 \<SUPPLEMENTAL\> | sed -e 's:<SUPPLEMENTAL>::' -e 's:<\/SUPPLEMENTAL>::' -e 's:<:\&lt\;:g' -e 's:>:\&gt\;:g' -e 's:* :\<br\>*\&nbsp\;:' -e 's: --:\<br\>--:' -e 's: -:\<br\>-:' -e 's:^--:\<br\>--:' -e 's:^$:\<br\>:' -e 's:\<br\> \<br\>:\<br\>:' -e 's:^ ::'`
+
+#help=`sed -n '\#<HELP>#{:a;N;#</HELP>#!ba;P}' ./Data/$portname.txt`
+#echo $help
+#| sed -e 's:<HELP>::' -e 's:<\/HELP>::' -e 's:<:\&lt\;:g' -e 's:>:\&gt\;:g' -e 's:* :\<br\>*\&nbsp\;:' -e 's: --:\<br\>--:' -e 's: -:\<br\>-:' -e 's:^--:\<br\>--:' -e 's:^$:\<br\>:' -e 's:\<br\> \<br\>:\<br\>:' -e 's:^ ::'`
+
+help=`cat ./Data/$portname.txt | sed -e 's:^.*HELP>::g' -e 's:<\/HELP.*$::g' -e 's:<:\&lt\;:g' -e 's:>:\&gt\;:g' -e 's:* :\<br\>*\&nbsp\;:' -e 's: --:\<br\>--:' -e 's: -:\<br\>-:' -e 's:^--:\<br\>--:' -e 's:^$:\<br\>:' -e 's:\<br\> \<br\>:\<br\>:' -e 's:^ ::'`
+#help=`cat ./Data/$portname.txt | sed -n '\#<HELP>#, #</HELP>#{ #<HELP>#! { #</HELP>#!p } }'`
+supplemental=`cat ./Data/$portname.txt | grep \<SUPPLEMENTAL\> | sed -e 's:<SUPPLEMENTAL>::' -e 's:<\/SUPPLEMENTAL>::'`
 else
 game=""
 pkg=""
 type=""
 subtype=""
+help=""
 supplemental=""
 fi
 
@@ -149,6 +172,10 @@ echo "<td>"`cat $path/Makefile | grep COMMENT= | sed -e 's:COMMENT=\t::1' -e 's:
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo "<td>"`cat $path/pkg-descr | sed -e 's:* :\<br\>*\&nbsp\;:' -e 's:^- :\<br\>-\&nbsp\;:' -e 's:^$:\<br\>:' -e 's:\<br\> \<br\>:\<br\>:' -e 's:^ ::' -e 's:WWW\: :\<br\>WWW\:\&nbsp\;:g' `"</td>" >> /var/tmp/tablerows.html
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# --- Help Output
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+echo "<td>"$help"</td>" >> /var/tmp/tablerows.html
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Supplemental Information
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
