@@ -20,7 +20,7 @@ This idea is a collection of screenshots, animated gifs of play, sample configur
 - more
 
 ### Community involvement
-Once this has a framework, at least a few games with their table items, other FreeBSD users are welcome to add.
+A reasonable portion has been constructed but it is far from complete and may not all be in its final form.  I welcome comments and involvement though I am quite new to attempting this here on github. If I need to make adjustments to improve involvement of other FreeBSD contributors, I can do so when I know what I need to change.
 
 ### Use (at present)
 First obtain the content of this repo by your preferred method, then simply: ./ports_games_rows.sh
