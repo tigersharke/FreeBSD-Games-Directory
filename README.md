@@ -6,9 +6,10 @@ This idea is a collection of screenshots, animated gifs of play, sample configur
 - An html interface will permit fairly easy sort functions in a table and provide access to other features via web browser.
 - Added links to places to obtain additional files for use with games or game engines.
 - Mechanism for translations of the html content.  How can game descriptions get translations?
+- Preferred zero or very limited dependencies aside from a web browser or html/css viewer/parser application.
 
 ### Sundry formats - ideas
-- Reasonable screenshot size/res: 1280x1024?  * except if lacking detail a larger screen size may provide.
+- Reasonable screenshot png, size/res: 1280x1024?  * except if lacking detail a larger screen size may provide.
 - Initial description pulled directly from port pkg-descr file.
 - Comment from Makefile as short description.
 - Executables list from pkg-plist.
