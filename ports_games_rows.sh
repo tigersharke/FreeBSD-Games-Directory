@@ -1,15 +1,28 @@
 #!/bin/sh
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Reset files to start fresh
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if [ -f "/var/tmp/gamelist_directory" ]; then
 rm /var/tmp/gamelist_directory
+fi
+if [ -f "/var/tmp/tablerows.html" ]; then
 rm /var/tmp/tablerows.html
+fi
+if [ -f "/var/tmp/temp_execfiles" ]; then
 rm /var/tmp/temp_execfiles
+fi
 if [ -f "./games_directory.html" ]; then
 rm ./games_directory.html
 fi
 
+# first in /usr/ports make index, then can make search key="game" cat="games" or something.
 # Too many <object> tags causes a massive load delay.
 # a missing ` will cause insane errors which include indicating an entirely wrong location of the error!
 # pkg-plist might be the beginning of the file name, there may be more than one depending if something like server vs client, such as xpilot-ng-server
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Get a definite list of games in /usr/ports/games
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ls -l /usr/ports/games/*/distinfo | cut -w -f 9 | sed -e 's:/distinfo::' > /var/tmp/gamelist_directory
  
 
@@ -52,43 +65,19 @@ portname=`echo -n $path | sed -e 's:/usr/ports/games/::1'`
 #fi
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# --- Fill in data
+# --- Parse file to fill-in single line data
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Supposed to be what I need but doesn't work:  
-# sed -n '/<VirtualHost*/,/<\/VirtualHost>/p'
-# sed -n '/Subject: /{:a;N;/Message-ID:/!ba; s/\n/ /g; s/\s\s*/ /g; s/.*Subject: \|Message-ID:.*//g;p}'
-# sed -n '/HOSTS:/{:a;N;/DATE/!ba;s/[[:space:]]//g;s/,/\n/g;s/.*HOSTS:\|DATE.*//g;p}'
-# -n                       # Disable printing
-# /HOSTS:/ {               # Match line containing literal HOSTS:
-#   :a;                    # Label used for branching (goto)
-#   N;                     # Added next line to pattern space
-#   /DATE/!ba              # As long as literal DATE is not matched goto :a
-#   s/.*HOSTS:\|DATE.*//g; # Remove everything in front of and including literal HOSTS:
-#                          # and remove everything behind and including literal DATE 
-#   s/[[:space:]]//g;      # Replace spaces and newlines with nothing
-#   s/,/\n/g;              # Replace comma with newline
-#   p                      # Print pattern space
-# }
-
 if [ -f "./Data/$portname.txt" ]; then
 game=`cat ./Data/$portname.txt | grep \<GAME\> | sed -e 's:<GAME>::' -e 's:<\/GAME>::'`
 pkg=`cat ./Data/$portname.txt | grep \<PKG\> | sed -e 's:<PKG>::' -e 's:<\/PKG>::'`
 type=`cat ./Data/$portname.txt | grep \<TYPE\> | sed -e 's:<TYPE>::' -e 's:<\/TYPE>::'`
 subtype=`cat ./Data/$portname.txt | grep \<SUBTYPE\> | sed -e 's:<SUBTYPE>::' -e 's:<\/SUBTYPE>::'`
-
-#help=`sed -n '\#<HELP>#{:a;N;#</HELP>#!ba;P}' ./Data/$portname.txt`
-#echo $help
-#| sed -e 's:<HELP>::' -e 's:<\/HELP>::' -e 's:<:\&lt\;:g' -e 's:>:\&gt\;:g' -e 's:* :\<br\>*\&nbsp\;:' -e 's: --:\<br\>--:' -e 's: -:\<br\>-:' -e 's:^--:\<br\>--:' -e 's:^$:\<br\>:' -e 's:\<br\> \<br\>:\<br\>:' -e 's:^ ::'`
-
-help=`cat ./Data/$portname.txt | sed -e 's:^.*HELP>::g' -e 's:<\/HELP.*$::g' -e 's:<:\&lt\;:g' -e 's:>:\&gt\;:g' -e 's:* :\<br\>*\&nbsp\;:' -e 's: --:\<br\>--:' -e 's: -:\<br\>-:' -e 's:^--:\<br\>--:' -e 's:^$:\<br\>:' -e 's:\<br\> \<br\>:\<br\>:' -e 's:^ ::'`
-#help=`cat ./Data/$portname.txt | sed -n '\#<HELP>#, #</HELP>#{ #<HELP>#! { #</HELP>#!p } }'`
 supplemental=`cat ./Data/$portname.txt | grep \<SUPPLEMENTAL\> | sed -e 's:<SUPPLEMENTAL>::' -e 's:<\/SUPPLEMENTAL>::'`
 else
 game=""
 pkg=""
 type=""
 subtype=""
-help=""
 supplemental=""
 fi
 
@@ -165,17 +154,33 @@ echo "<td>"$subtype"</td>" >> /var/tmp/tablerows.html
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Makefile comment
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo "<td>"`cat $path/Makefile | grep COMMENT= | sed -e 's:COMMENT=\t::1' -e 's:COMMENT= ::1'`"</td>" >> /var/tmp/tablerows.html
+echo "<td>" >> /var/tmp/tablerows.html
+cat $path/Makefile | grep COMMENT= | sed -e 's:COMMENT=\t::1' -e 's:COMMENT= ::1' >> /var/tmp/tablerows.html
+echo "</td>" >> /var/tmp/tablerows.html
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Long Description
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo "<td>"`cat $path/pkg-descr | sed -e 's:* :\<br\>*\&nbsp\;:' -e 's:^- :\<br\>-\&nbsp\;:' -e 's:^$:\<br\>:' -e 's:\<br\> \<br\>:\<br\>:' -e 's:^ ::' -e 's:WWW\: :\<br\>WWW\:\&nbsp\;:g' `"</td>" >> /var/tmp/tablerows.html
+echo "<td>" >> /var/tmp/tablerows.html
+if [ -f "$path/pkg-descr" ]; then
+#cat $path/pkg-descr |sed -e 's:\ :\&nbsp\;:' -e 's:* :\<br\>*\&nbsp\;:' -e 's:^- :\<br\>-\&nbsp\;:' -e 's:^$:\<br\>:' -e 's:\<br\> \<br\>:\<br\>:' -e 's:^ ::' -e 's:WWW\: :\<br\> WWW\:\&nbsp\;:g' >> /var/tmp/tablerows.html
+cat $path/pkg-descr| sed -e 's:<:\&lt\;:g' -e 's:>:\&gt\;:g'  -e 's:\ :\&nbsp\;:g' -e 's:^-:\<br\>-:' -e 's:^*:\<br\>*:' -e 's:^$:\<br\>:' >> /var/tmp/tablerows.html
+else
+echo "pkg-descr missing" >> /var/tmp/tablerows.html
+fi
+echo "</td>" >> /var/tmp/tablerows.html
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Help Output
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo "<td>"$help"</td>" >> /var/tmp/tablerows.html
+echo "<td>" >> /var/tmp/tablerows.html
+if [ -f "./Data/Help/$portname.txt" ]; then
+cat ./Data/Help/$portname.txt| sed -e 's:<:\&lt\;:g' -e 's:>:\&gt\;:g'  -e 's:\ :\&nbsp\;:g' -e 's:^-:\<br\>-:' -e 's:^*:\<br\>*:' -e 's:^$:\<br\>:' >> /var/tmp/tablerows.html
+echo "</td>" >> /var/tmp/tablerows.html
+else
+echo "</td>" >> /var/tmp/tablerows.html
+fi
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Supplemental Information
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,8 +1,4 @@
-<GAME>abe</GAME>
-<PKG>abe</PKG>
-<TYPE>arcade</TYPE>
-<SUBTYPE>sidescroll</SUBTYPE>
-<HELP>abe --help
+abe --help
 Abe!! Happy Birthday, 2002
 
 --window           Run in windowed mode.
@@ -16,5 +12,3 @@ Abe!! Happy Birthday, 2002
 -b --bpp #         Use this bpp for the video mode.
 --nosound          Don't use sound.
 -? -h --help       Show this help message.
-</HELP>
-<SUPPLEMENTAL>-</SUPPLEMENTAL>

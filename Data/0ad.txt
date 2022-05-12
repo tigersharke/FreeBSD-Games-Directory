@@ -2,5 +2,3 @@
 <PKG>0ad</PKG>
 <TYPE>RTS</TYPE>
 <SUBTYPE>warfare, simulation</SUBTYPE>
-<HELP>-</HELP>
-<SUPPLEMENTAL>-</SUPPLEMENTAL>

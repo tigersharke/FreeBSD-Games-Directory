@@ -1,0 +1,6 @@
+<GAME>aestats</GAME>
+<PKG>aestats</PKG>
+<TYPE>utility</TYPE>
+<SUBTYPE></SUBTYPE>
+<HELP>-</HELP>
+<SUPPLEMENTAL>-</SUPPLEMENTAL>

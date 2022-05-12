@@ -2,7 +2,237 @@
 <html>
 <head>
 <title>FreeBSD Games Directory</title>
+<style>
+a { color: initial; text-decoration: none; border-bottom:1.5px solid blue;}
+a:hover { color: blue; text-decoration: underline; border-bottom: none; }
+
+body{
+background-color: white;
+font-family: "Palatino Linotype", Palatino, Palladio, "URW Palladio L", "Book Antiqua", Baskerville, "Bookman Old Style", "Bitstream Charter", "Nimbus Roman No9 L", Garamond, "Apple Garamond", "ITC Garamond Narrow", "New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia, serif;
+}
+
+table {
+	display: block;
+	flex-direction: row;
+}
+
+table.main {
+	border-collapse: collapse;
+	border: none!important;
+	font-size: .98em;
+	position: relative;
+}
+
+table.main th {
+	text-align: center;
+	border:1.5px solid black;
+	background-color: beige;
+}
+header,
+div.header,
+table.main tr:nth-child(1){
+}
+
+header,
+div.header,
+table.main {
+	display:block;
+}
+
+table.main th, table.main td {padding: 3px;}
+
+table, th, td, tr {
+	text-align: left;
+	border:1.5px solid black;
+	word-wrap: break-word;
+	white-space: pre-wrap;
+	font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+   	font-weight: normal;
+   	font-style: normal;
+	line-height: initial;
+}
+table.main td img {
+	max-width: 100%;
+}
+
+table.main tr {border:none;}
+table.main tr:nth-child(2n){background-color:#eee;}
+table.main tr:nth-child(2n):hover{background-color: #efef99;}
+table.main tr:nth-child(2n+1){background-color:#ddd;}
+table.main tr:nth-child(2n+1):hover{background-color: #dfdf99;}
+
+#myInput {
+  	width: 22vw;
+ 	font-size: 20px;
+ 	padding: 3px;
+  	border: 1px solid #ddd;
+  	margin:3px;
+  	display: block;
+}
+div.myInput {
+	display: inline-block;
+}
+
+div.hidecol {
+	padding: 3px;
+	display: block;
+}
+div.hideform {
+	border:1px solid black;
+	margin-left: 5px;
+	margin-right: 5px;
+	max-width: max-content;
+	padding: 3px;
+	display: inline-block;
+}
+
+header{
+	max-width: 98%;
+	position: absolute;
+	top: 0.5vh;
+	background-color: rgb(150, 150, 150);
+	padding-left: 3px;
+	padding-right: 3px;
+	margin: 0px 0px 8px 0px;
+	border-top:1.5px solid black;
+	border-left:1.5px solid black;
+	border-right:1.5px solid black;
+}
+
+div.table,
+div.header {
+display: block;
+}
+
+div.footer {
+	padding-top: 0.15vh;
+	padding-bottom: 0.15vh;
+	margin-bottom: 8px;
+	height: calc(max-content + 0.3vh);
+}
+
+span.comment {
+	max-height: max-content;
+	width: max-content;
+	font-style: italic;
+	font-size: 1.05em;
+	top: 30px;
+	display: block;
+}
+
+span.formlabel {
+	font-weight: 600;
+	font-style: italic;
+	font-size: 1.2em;
+}
+xtd {
+	flex-grow: column;
+	flex-wrap: nowrap;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+/* game name */
+th.column0 td{
+	flex-basis: auto;
+}
+
+/* port name */
+th.column1 td{
+	flex-basis: auto;
+}
+
+/* executables */
+th.column2 td{
+	flex-basis: 30px;
+	word-wrap: normal;
+}
+
+/* pkg name */
+th.column3 td{
+	flex-basis: auto;
+}
+
+/* type */
+th.column4 td{
+	flex-basis: 1%;
+}
+
+/* subtype */
+th.column5 td{
+	flex-basis: 1%;
+}
+
+/* comment */
+th.column6 td{
+	flex-basis: 1%;
+}
+
+/* long desc */
+th.column7 td{
+	flex-basis: 1.5%;
+}
+
+/* supplemental */
+th.column8, th.column9 td{
+	flex-basis: 12%;
+	word-wrap: normal;
+}
+
+/* help */
+th.column9, th.column10 td{
+	flex-basis: 12%;
+	word-wrap: normal;
+}
+
+/* anim */
+th.column10 td{
+	flex-basis: 28px;
+}
+
+/* shot */
+th.column11 td{
+	flex-basis: 28px;
+}
+
+div.table {
+	max-width: 100%;
+	border: 2px solid transparent;
+	display: block;
+	margin-right: 3px;
+	margin-left: 1px;
+	/*left: -3px;*/
+}
+.button:hover {
+	margin: 3px;
+	padding:3px;
+	font-size:12px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	color: #000;
+	border: solid 1px #e3e3e3; border-right:0px;
+	background: #eee;
+	border-top-right-radius: 5px 5px;
+	border-bottom-right-radius: 5px 5px;
+}
+.button, .button:active {
+	margin: 3px;
+	padding:3px;
+	font-size:12px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	color: #888;
+	border: solid 1px #ddd; border-right:0px;
+	background: #c8c8c8;
+	border-top-right-radius: 5px 5px;
+	border-bottom-right-radius: 5px 5px;
+}
+</style>
 <script>
+// This works now: May 9, 2022
 function FilterFunction() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;
@@ -23,6 +253,7 @@ function FilterFunction() {
       }
     }
   }
+
 }
 </script>
 <script>
@@ -114,203 +345,11 @@ headers.forEach(function(th, index) {
 });
 </script>
 
-<style>
-a { color: initial; text-decoration: none; border-bottom:1.5px solid blue;}
-a:hover { color: blue; text-decoration: underline; border-bottom: none; }
 
-body{
-background-color: white;
-font-family: "Palatino Linotype", Palatino, Palladio, "URW Palladio L", "Book Antiqua", Baskerville, "Bookman Old Style", "Bitstream Charter", "Nimbus Roman No9 L", Garamond, "Apple Garamond", "ITC Garamond Narrow", "New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia, serif;
-}
-
-table {
-	display: inline-table;
-	flex-direction: row;
-}
-
-table.main {
-	border-collapse: collapse;
-	border: none!important;
-	font-size: .98em;
-	position: relative;
-}
-
-table.main th {
-	text-align: center;
-	border:1.5px solid black;
-	background-color: beige;
-}
-header,
-div.header,
-table.main tr:nth-child(1){
-}
-
-table.main th, table.main td {padding: 3px;}
-
-table, th, td, tr {
-	text-align: left;
-	border:1.5px solid black;
-	word-wrap: break-word;
-	white-space: pre-wrap;
-	font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
-   	font-weight: normal;
-   	font-style: normal;
-	line-height: initial;
-}
-table.main td img {
-max-width: 100%;
-}
-
-table.main tr {border:none;}
-table.main tr:nth-child(2n){background-color:#eee;}
-table.main tr:nth-child(2n):hover{background-color: #efef99;}
-table.main tr:nth-child(2n+1){background-color:#ddd;}
-table.main tr:nth-child(2n+1):hover{background-color: #dfdf99;}
-
-#myInput {
-  width: 22vw;
-  font-size: 16px;
-  padding: 3px;
-  border: 1px solid #ddd;
-  margin:3px;
-  display: inline-block;
-}
-div.myInput {
-display: inline-block;
-}
-
-div.hidecol {
-padding: 3px;
-display: inline-block;
-}
-div.hideform {
-border:1px solid black;
-margin-left: 5px;
-margin-right: 5px;
-max-width: max-content;
-padding: 3px;
-display: inline-block;
-}
-
-header,
-div.header{
-max-width: 98%;
-position: absolute;
-top: 0.5vh;
-background-color: rgb(150, 150, 150);
-padding-left: 3px;
-padding-right: 3px;
-margin: 0px 0px 8px 0px;
-border-top:1.5px solid black;
-border-left:1.5px solid black;
-border-right:1.5px solid black;
-}
-
-div.footer {
-padding-top: 0.15vh;
-padding-bottom: 0.15vh;
-margin-bottom: 8px;
-height: calc(max-content + 0.3vh);
-}
-
-span.comment {
-max-height: max-content;
-width: max-content;
-font-style: italic;
-font-size: 1.05em;
-top: 30px;
-display: block;
-}
-
-span.formlabel {
-font-weight: 600;
-font-style: italic;
-font-size: 1.2em;
-}
-td {
- flex-grow: column;
- flex-wrap: nowrap;
- flex-grow: 1;
- flex-shrink: 1;
-}
-/* game name */
-th.column1 td{
-	flex-basis: auto;
-}
-
-/* port name */
-th.column2 td{
-	flex-basis: auto;
-}
-
-/* executables */
-th.column3 td{
-	flex-basis: 30px;
-	word-wrap: normal;
-}
-
-/* pkg name */
-th.column4 td{
-	flex-basis: auto;
-}
-
-/* type */
-th.column5 td{
-	flex-basis: 1%;
-}
-
-/* subtype */
-th.column6 td{
-	flex-basis: 1%;
-}
-
-/* comment */
-th.column7 td{
-	flex-basis: 1%;
-}
-
-/* long desc */
-th.column8 td{
-	flex-basis: 1.5%;
-}
-
-/* supplemental */
-th.column9, th.column9 td{
-	flex-basis: 12%;
-	word-wrap: normal;
-}
-
-/* help */
-th.column10, th.column10 td{
-	flex-basis: 12%;
-	word-wrap: normal;
-}
-
-/* anim */
-th.column11 td{
-	flex-basis: 28px;
-}
-
-/* shot */
-th.column12 td{
-	flex-basis: 28px;
-}
-
-div.table {
-	max-width: 100%;
-	border: 2px solid transparent;
-	display: block;
-	position: relative;
-	top: 0px;
-	margin-right: 3px;
-	margin-left: 1px;
-	/*left: -3px;*/
-}
-</style>
 </head>
 <body>
 <header>
-<!-- <div class="header"> -->
+<div class="header"><!-- <div class="header"> -->
 <span class="comment">A bit more detail in an easy form for those things we have in ports..</span>
 <h1>FreeBSD Games Directory</h1>
 <div class="hidecol">
@@ -329,26 +368,31 @@ div.table {
   <div class="hideform"><label for="anim">Animation</label><input type="checkbox" id="anim" name="visibility" value="none"></div>
 </form>
 </div> <!-- hidecol -->
-<div class="myInput"><input type="text" id="myInput" onkeyup="FilterFunction()" placeholder="Search for Game names.."></div>
+
+<div class="myInput"><input type="text" id="myInput" onkeyup="FilterFunction()" placeholder="Filter for text.."></div>
+</div>
+</header>
+<br>
 <div class="table">
 <!-- <div class="buffer">&nbsp;</div> -->
 <table class="main" id="myTable">
+<tbody>
 <tr class="header">
-<th class="column1" onclick="sortTable(0)" >Game name</th>
-<th class="column2" onclick="sortTable(1)" >Port name</th>
-<th class="comumn3" onclick="sortTable(2)" >Executable(s)</th>
-<th class="column4" onclick="sortTable(3)" >Pkg name</th>
-<th class="column5" onclick="sortTable(4)" >Type</th>
-<th class="column6" onclick="sortTable(5)" >Sub-type(s)</th>
-<th class="column7" onclick="sortTable(6)" >Port: Makefile Comment</th>
-<th class="column8" onclick="sortTable(7)" >Port: Long Description</th>
-<th class="column9" onclick="sortTable(8)" >Help Output</th>
-<th class="column10" onclick="sortTable(9)" >Supplemental information</th>
-<th class="column11" onclick="sortTable(10)" >Screenshot</th>
-<th class="column12" onclick="sortTable(11)" >Animation</th>
+<th class="column0" onclick="sortTable(0)" >Game name</th>
+<th class="column1" onclick="sortTable(1)" >Port name</th>
+<th class="comumn2" onclick="sortTable(2)" >Executable(s)</th>
+<th class="column3" onclick="sortTable(3)" >Pkg name</th>
+<th class="column4" onclick="sortTable(4)" >Type</th>
+<th class="column5" onclick="sortTable(5)" >Sub-type(s)</th>
+<th class="column6" onclick="sortTable(6)" >Port: Makefile Comment</th>
+<th class="column7" onclick="sortTable(7)" >Port: Long Description</th>
+<th class="column8" onclick="sortTable(8)" >Help Output</th>
+<th class="column9" onclick="sortTable(9)" >Supplemental information</th>
+<th class="column10" onclick="sortTable(10)" >Screenshot</th>
+<th class="column11" onclick="sortTable(11)" >Animation</th>
 </tr>
 <!-- </div> --> <!-- header -->
-</header>
+
 <!-- Generated html -->
 
  

@@ -1,0 +1,35 @@
+3omns&nbsp;--help
+
+Usage: 3omns [OPTION...]
+Old-school arcade-style tile-based bomb-dropping deathmatch jam
+
+  -g, --game=MOD             Run Lua game code from MOD (default: 'base')
+  -r, --resources=RES        Location of game resources (default: './res' if
+                             valid, or '/usr/local/share/3omns')
+
+ Network play options:
+  -c, --connect=SERVER       Connect to network host
+  -p, --port=PORT            Port for serving or connecting (default: 30325)
+  -s, --serve[=LISTEN]       Host network game on the given address (default:
+                             *)
+
+ Debug options:
+  -d, --debug                Run in debug mode
+  -n, --debug-network        Print network messages
+  -P, --protocol-verbosity=N Packet logging verbosity, 0=silent, 1=errors,
+                             2=warnings, 3=debug (default: 0)
+
+ Informational options:
+  -R, --default-resources    Print default resources path
+                             ('/usr/local/share/3omns') and exit
+
+  -?, --help                 Give this help list
+      --usage                Give a short usage message
+  -V, --version              Print program version
+
+Mandatory or optional arguments to long options are also mandatory or optional
+for any corresponding short options.
+
+See <https://chazomaticus.github.io/3omns/> for more information.
+
+Report bugs to <chaz@chazomatic.us>.

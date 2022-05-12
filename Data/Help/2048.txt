@@ -1,0 +1,3 @@
+2048&nbsp;-h
+
+usage: 2048 [-cCaAiIrh] [-s SIZE] [-b RATE]

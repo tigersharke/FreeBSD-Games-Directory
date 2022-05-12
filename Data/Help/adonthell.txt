@@ -1,0 +1,12 @@
+adonthell&nbsp;-h
+
+Usage: adonthell [OPTIONS] GAME
+
+Where [OPTIONS] can be:
+-h         print this help message
+-d         print the data directory and exit
+-v         print version and exit
+-l         list installed games and exit
+-g dir     play the game contained in dir (for development only)
+-c         byte-compile all Python scripts in this directory (for 
+           development only)

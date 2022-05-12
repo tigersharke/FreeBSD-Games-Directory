@@ -1,0 +1,10 @@
+3Dc&nbsp;--help
+
+3Dc version 0.8.1, Copyright (C) 1995,1996 Paul Hicks
+3Dc comes with ABSOLUTELY NO WARRANTY: see the GPL file for details
+This is free software: you are welcome to redistribute it
+    under certain conditions (see the GPL file).
+Usage:
+3Dc ; play 3Dc, two humans on one display
+3Dc -ad|-altdisplay [display] ; black plays on display `display'
+3Dc -play colour ; play against the computer, which plays colour

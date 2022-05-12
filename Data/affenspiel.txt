@@ -1,0 +1,6 @@
+<GAME>affenspiel</GAME>
+<PKG>affenspiel</PKG>
+<TYPE>puzzle</TYPE>
+<SUBTYPE>tile, slide</SUBTYPE>
+<HELP>-</HELP>
+<SUPPLEMENTAL>-</SUPPLEMENTAL>
