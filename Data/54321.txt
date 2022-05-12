@@ -2,5 +2,4 @@
 <PKG>54321</PKG>
 <TYPE>puzzle</TYPE>
 <SUBTYPE>-</SUBTYPE>
-<HELP>-</HELP>
 <SUPPLEMENTAL>Execution as `54321&nbsp;--` will cause this to be windowed, otherwise it is fullscreen with a small playing field surrounded by empty black space.</SUPPLEMENTAL>

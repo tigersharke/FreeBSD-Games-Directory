@@ -2,18 +2,3 @@
 <PKG>aisleriot</PKG>
 <TYPE>card</TYPE>
 <SUBTYPE>solitaire</SUBTYPE>
-<HELP>sol&nbsp;--help
-
-Usage:
-  sol [OPTION…]
-
-Help Options:
-  -h, --help               Show help options
-  --help-all               Show all help options
-  --help-gtk               Show GTK+ Options
-
-Application Options:
-  -v, --variation=NAME     Select the game type to play
-  --display=DISPLAY        X display to use
-</HELP>
-<SUPPLEMENTAL>-</SUPPLEMENTAL>

@@ -2,15 +2,3 @@
 <PKG>3dpong</PKG>
 <TYPE>arcade</TYPE>
 <SUBTYPE>3D</SUBTYPE>
-<HELP>3dpong&nbsp;--help
-
-Usage: 3dpong display1 [display2 | --computer] [--gravity value]
-       [--net value] [--sound] [--nockick1] [--noclick2]
-
-Controls:
-  [V] - Change view
-  [3] - Toggle 3D glasses mode
-  [C] - Toggle "noclick" mode
-  [Q] - Quit
-</HELP>
-<SUPPLEMENTAL>-</SUPPLEMENTAL>

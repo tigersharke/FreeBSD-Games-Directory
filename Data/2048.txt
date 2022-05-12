@@ -2,8 +2,3 @@
 <PKG>2048</PKG>
 <TYPE>puzzle</TYPE>
 <SUBTYPE>CLI</SUBTYPE>
-<HELP>2048&nbsp;-h
-
-usage: 2048 [-cCaAiIrh] [-s SIZE] [-b RATE]
-</HELP>
-<SUPPLEMENTAL>-</SUPPLEMENTAL>

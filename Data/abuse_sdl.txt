@@ -2,31 +2,3 @@
 <PKG>abuse_sdl</PKG>
 <TYPE></TYPE>
 <SUBTYPE>-</SUBTYPE>
-<HELP> abuse&nbsp;--help
-abuse 0.8
-
-Usage: abuse.sdl [options]
-Options:
-
-** Abuse Options **
-  -size <arg>       Set the size of the screen
-  -edit             Startup in editor mode
-  -a <arg>          Use addon named <arg>
-  -f <arg>          Load map file named <arg>
-  -lisp             Startup in lisp interpreter mode
-  -nodelay          Run at maximum speed
-
-** Abuse-SDL Options **
-  -datadir <arg>    Set the location of the game data to <arg>
-  -doublebuf        Enable double buffering
-  -fullscreen       Enable fullscreen mode
-  -gl               Enable OpenGL
-  -antialias        Enable anti-aliasing (with -gl only)
-  -h, --help        Display this text
-  -mono             Disable stereo sound
-  -nosound          Disable sound
-  -scale <arg>      Scale to <arg>
-
-Anthony Kruize <trandor@labyrinth.net.au>
-</HELP>
-<SUPPLEMENTAL>-</SUPPLEMENTAL>

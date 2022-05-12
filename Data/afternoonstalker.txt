@@ -1,0 +1,4 @@
+<GAME>afternoonstalker</GAME>
+<PKG>afternoonstalker</PKG>
+<TYPE>arcade</TYPE>
+<SUBTYPE>maze, shooter</SUBTYPE>

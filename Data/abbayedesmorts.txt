@@ -2,5 +2,3 @@
 <PKG>abbayedesmorts</PKG>
 <TYPE>arcade</TYPE>
 <SUBTYPE>rpg, adventure, sidescroller</SUBTYPE>
-<HELP>-</HELP>
-<SUPPLEMENTAL>-</SUPPLEMENTAL>
