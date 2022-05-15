@@ -3,8 +3,8 @@
 <head>
 <title>FreeBSD Games Directory</title>
 <style>
-a { color: initial; text-decoration: none; border-bottom:1.5px solid blue;}
-a:hover { color: blue; text-decoration: underline; border-bottom: none; }
+footer a { color: initial; text-decoration: none; border-bottom:1.5px solid blue;}
+footer a:hover { color: blue; text-decoration: underline; border-bottom: none; }
 
 body{
 background-color: white;
@@ -99,6 +99,31 @@ header{
 	border-right:1.5px solid black;
 }
 
+#overlay {
+  position: fixed;
+  display: none;
+  width: 40%;
+  height: 40%;
+  top: 25%;
+  left: 25%;
+  right: 25%;
+  bottom:25%;
+  background-color: rgba(0,0,0,0.88);
+  border: .45em solid red;
+  box-shadow: 3px 3px 7px 5px rgba(0,0,0,0.75);
+  z-index: 2;
+  cursor: pointer;
+}
+
+#text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 1.6em;
+  color: white;
+  transform: translate(-50%,-50%);
+}
+
 div.table,
 div.header {
 display: block;
@@ -118,6 +143,18 @@ span.comment {
 	font-size: 1.05em;
 	top: 30px;
 	display: block;
+}
+span.maint:hover {
+text-decoration: underline;
+}
+
+span.maint {
+color: purple;
+background-color: #40FF40;
+padding-left: .195em;
+padding-right: .195em;
+padding-top: .13em;
+text-decoration: none;
 }
 
 span.formlabel {
@@ -344,7 +381,15 @@ headers.forEach(function(th, index) {
     });
 });
 </script>
+<script>
+function on() {
+  document.getElementById("overlay").style.display = "block";
+}
 
+function off() {
+  document.getElementById("overlay").style.display = "none";
+}
+</script>
 
 </head>
 <body>
@@ -375,6 +420,21 @@ headers.forEach(function(th, index) {
 <br>
 <div class="table">
 <!-- <div class="buffer">&nbsp;</div> -->
+<div id="overlay" onclick="off()">
+<div id="text">
+<p>
+This port currently does not have a maintainer. As a result, it is
+more likely to have unresolved issues, not be up-to-date, or even be removed in
+the future. To volunteer to maintain this port, please create an issue at:
+
+<a href="https://bugs.freebsd.org/bugzilla">https://bugs.freebsd.org/bugzilla</a>
+
+More information about port maintainership is available at:
+
+<a href="https://docs.freebsd.org/en/articles/contributing/#ports-contributing">https://docs.freebsd.org/en/articles/contributing/#ports-contributing</a>
+</p>
+</div>
+</div>
 <table class="main" id="myTable">
 <tbody>
 <tr class="header">

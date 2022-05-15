@@ -162,6 +162,11 @@ echo "</td>" >> /var/tmp/tablerows.html
 # --- Long Description
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo "<td>" >> /var/tmp/tablerows.html
+maintainer=`cat $path/Makefile | grep MAINTAINER= | sed -e 's:MAINTAINER=\t::1' -e 's:MAINTAINER= ::1'`
+if [ "$maintainer" = "ports@FreeBSD.org" ] ; then 
+echo "<span class=\"maint\"><a onclick="on\(\)">Maintainer needed</a></span>" >> /var/tmp/tablerows.html
+fi
+
 if [ -f "$path/pkg-descr" ]; then
 #cat $path/pkg-descr |sed -e 's:\ :\&nbsp\;:' -e 's:* :\<br\>*\&nbsp\;:' -e 's:^- :\<br\>-\&nbsp\;:' -e 's:^$:\<br\>:' -e 's:\<br\> \<br\>:\<br\>:' -e 's:^ ::' -e 's:WWW\: :\<br\> WWW\:\&nbsp\;:g' >> /var/tmp/tablerows.html
 cat $path/pkg-descr| sed -e 's:<:\&lt\;:g' -e 's:>:\&gt\;:g'  -e 's:\ :\&nbsp\;:g' -e 's:^-:\<br\>-:' -e 's:^*:\<br\>*:' -e 's:^$:\<br\>:' >> /var/tmp/tablerows.html
