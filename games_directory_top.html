@@ -7,20 +7,27 @@ footer a { color: initial; text-decoration: none; border-bottom:1.5px solid blue
 footer a:hover { color: blue; text-decoration: underline; border-bottom: none; }
 
 body{
+font-size:calc(.5em + .2vw);
 background-color: white;
 font-family: "Palatino Linotype", Palatino, Palladio, "URW Palladio L", "Book Antiqua", Baskerville, "Bookman Old Style", "Bitstream Charter", "Nimbus Roman No9 L", Garamond, "Apple Garamond", "ITC Garamond Narrow", "New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia, serif;
 }
 
 table {
 	display: block;
+	postion: absolute;
 	flex-direction: row;
+	top:	12.1vh;
+	/* left:	-0.15vw;
+	right:	-0.15vw; */
+	bottom:	0.25vh;
 }
 
 table.main {
 	border-collapse: collapse;
 	border: none!important;
-	font-size: .98em;
 	position: relative;
+
+font-size:calc(.95em + .2vw);
 }
 
 table.main th {
@@ -46,7 +53,8 @@ table, th, td, tr {
 	border:1.5px solid black;
 	word-wrap: break-word;
 	white-space: pre-wrap;
-	font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+	font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter",
+	"DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
    	font-weight: normal;
    	font-style: normal;
 	line-height: initial;
@@ -63,7 +71,8 @@ table.main tr:nth-child(2n+1):hover{background-color: #dfdf99;}
 
 #myInput {
   	width: 22vw;
- 	font-size: 20px;
+ 	font-size: 1.3vw;
+ 	font-size:calc(1.05em + .2vw);
  	padding: 3px;
   	border: 1px solid #ddd;
   	margin:3px;
@@ -87,13 +96,14 @@ div.hideform {
 }
 
 header{
-	max-width: 98%;
 	position: absolute;
+	left: 0.5vw;
+	right: 0.5vw;
 	top: 0.5vh;
 	background-color: rgb(150, 150, 150);
 	padding-left: 3px;
 	padding-right: 3px;
-	margin: 0px 0px 8px 0px;
+	margin: 0px 0px 1px 0px;
 	border-top:1.5px solid black;
 	border-left:1.5px solid black;
 	border-right:1.5px solid black;
@@ -103,12 +113,12 @@ header{
   position: fixed;
   display: none;
   width: 40%;
-  height: 40%;
+  height: 26%;
   top: 25%;
-  left: 25%;
+  left: 30%;
   right: 25%;
   bottom:25%;
-  background-color: rgba(0,0,0,0.88);
+  background-color: rgba(10,10,10,0.95);
   border: .45em solid red;
   box-shadow: 3px 3px 7px 5px rgba(0,0,0,0.75);
   z-index: 2;
@@ -117,11 +127,13 @@ header{
 
 #text{
   position: absolute;
-  top: 50%;
+  top: 52%;
   left: 50%;
-  font-size: 1.6em;
+  /* font-size: 1.6em; */
+  font-size: 1.1vw;
   color: white;
-  transform: translate(-50%,-50%);
+  width: 90%;
+  transform: translate(-52%,-54%);
 }
 
 div.table,
@@ -129,11 +141,23 @@ div.header {
 display: block;
 }
 
+table {
+overflow-y: scroll;
+overflow-x: auto;
+}
+
+
+
 div.footer {
+	position: relative;
+	bottom: 0px;
+	left: 0.5vw;
+	right: 0.5vw;
 	padding-top: 0.15vh;
 	padding-bottom: 0.15vh;
 	margin-bottom: 8px;
 	height: calc(max-content + 0.3vh);
+	display: block;
 }
 
 span.comment {
@@ -141,10 +165,11 @@ span.comment {
 	width: max-content;
 	font-style: italic;
 	font-size: 1.05em;
+	font-size:calc(.9em + .2vw);
 	top: 30px;
 	display: block;
 }
-span.maint:hover {
+span.maint a {
 text-decoration: underline;
 }
 
@@ -154,7 +179,6 @@ background-color: #40FF40;
 padding-left: .195em;
 padding-right: .195em;
 padding-top: .13em;
-text-decoration: none;
 }
 
 span.formlabel {
@@ -162,7 +186,7 @@ span.formlabel {
 	font-style: italic;
 	font-size: 1.2em;
 }
-xtd {
+tbody {
 	flex-grow: column;
 	flex-wrap: nowrap;
 	flex-grow: 1;
@@ -174,70 +198,69 @@ th.column0 td{
 }
 
 /* port name */
-th.column1 td{
+th.column1 {
 	flex-basis: auto;
 }
 
 /* executables */
-th.column2 td{
-	flex-basis: 30px;
+th.column2 {
+	flex-basis: auto;
 	word-wrap: normal;
 }
 
 /* pkg name */
-th.column3 td{
+th.column3 {
 	flex-basis: auto;
 }
 
 /* type */
-th.column4 td{
-	flex-basis: 1%;
+th.column4 {
+	flex-basis: auto;
 }
 
 /* subtype */
 th.column5 td{
-	flex-basis: 1%;
+	flex-basis: auto;
 }
 
 /* comment */
-th.column6 td{
-	flex-basis: 1%;
+th.column6 {
+	flex-basis: auto;
+	overflow-x: auto;
 }
 
 /* long desc */
-th.column7 td{
-	flex-basis: 1.5%;
+th.column7 {
+	flex-basis: auto;
+	overflow-x: auto;
 }
 
 /* supplemental */
-th.column8, th.column9 td{
-	flex-basis: 12%;
-	word-wrap: normal;
+th.column8 {
+	flex-basis: 10%;
+	overflow-x: auto;
 }
 
 /* help */
-th.column9, th.column10 td{
-	flex-basis: 12%;
-	word-wrap: normal;
+th.column9 {
+	flex-basis: auto;
+	overflow-x: auto;
 }
 
 /* anim */
-th.column10 td{
+th.column10{
 	flex-basis: 28px;
 }
 
 /* shot */
-th.column11 td{
+th.column11{
 	flex-basis: 28px;
 }
 
 div.table {
-	max-width: 100%;
+	/* max-width: 100%; */
 	border: 2px solid transparent;
 	display: block;
-	margin-right: 3px;
-	margin-left: 1px;
-	/*left: -3px;*/
 }
 .button:hover {
 	margin: 3px;
@@ -266,6 +289,11 @@ div.table {
 	background: #c8c8c8;
 	border-top-right-radius: 5px 5px;
 	border-bottom-right-radius: 5px 5px;
+}
+
+p.maint {
+word-wrap: normal;
+width: 100%;
 }
 </style>
 <script>
@@ -422,7 +450,7 @@ function off() {
 <!-- <div class="buffer">&nbsp;</div> -->
 <div id="overlay" onclick="off()">
 <div id="text">
-<p>
+<p class="maint">
 This port currently does not have a maintainer. As a result, it is
 more likely to have unresolved issues, not be up-to-date, or even be removed in
 the future. To volunteer to maintain this port, please create an issue at:

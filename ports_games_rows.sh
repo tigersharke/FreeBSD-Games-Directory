@@ -90,9 +90,7 @@ if [ -f "./Data/$portname.txt" ]; then
 echo "<td>"$game"</td>" >> /var/tmp/tablerows.html
 else
 echo -n "<td>" >> /var/tmp/tablerows.html
-echo -n "Missing, please create<br>" >> /var/tmp/tablerows.html
-echo -n "./Data/"$portname".txt<br>" >> /var/tmp/tablerows.html
-echo -n "and submit to project." >> /var/tmp/tablerows.html
+echo -n "No ./Data<br>" >> /var/tmp/tablerows.html
 echo "</td>" >> /var/tmp/tablerows.html
 fi
 
@@ -164,7 +162,7 @@ echo "</td>" >> /var/tmp/tablerows.html
 echo "<td>" >> /var/tmp/tablerows.html
 maintainer=`cat $path/Makefile | grep MAINTAINER= | sed -e 's:MAINTAINER=\t::1' -e 's:MAINTAINER= ::1'`
 if [ "$maintainer" = "ports@FreeBSD.org" ] ; then 
-echo "<span class=\"maint\"><a onclick="on\(\)">Maintainer needed</a></span>" >> /var/tmp/tablerows.html
+echo "<span class=\"maint\">Maintainer needed <a onclick="on\(\)">(info)</a></span>" >> /var/tmp/tablerows.html
 fi
 
 if [ -f "$path/pkg-descr" ]; then
