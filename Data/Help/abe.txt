@@ -8,7 +8,8 @@ Abe!! Happy Birthday, 2002
 -t --test          Test video modes only.
 -s --system        Use system memory instead of video(default) memory.
 --size #           Use this width/height for the video mode.
-        Modes: 0-320/200 1-320/240 2-640/400 3-640/480 4-800/600 5-1024/768 6-1280/1024 7-1600/1200
+	Modes:	0-320/200 1-320/240 2-640/400 3-640/480
+		4-800/600 5-1024/768 6-1280/1024 7-1600/1200
 -b --bpp #         Use this bpp for the video mode.
 --nosound          Don't use sound.
 -? -h --help       Show this help message.

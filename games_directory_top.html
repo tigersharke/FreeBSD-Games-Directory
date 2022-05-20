@@ -3,52 +3,38 @@
 <head>
 <title>FreeBSD Games Directory</title>
 <style>
-footer a { color: initial; text-decoration: none; border-bottom:1.5px solid blue;}
-footer a:hover { color: blue; text-decoration: underline; border-bottom: none; }
+.footer a { color: initial; text-decoration: none; border-bottom:1.5px solid blue;}
+.footer a:hover { color: blue; text-decoration: underline; border-bottom: none; }
 
+#myInput,
+div.formatting,
 body{
 font-size:calc(.5em + .2vw);
-background-color: white;
 font-family: "Palatino Linotype", Palatino, Palladio, "URW Palladio L", "Book Antiqua", Baskerville, "Bookman Old Style", "Bitstream Charter", "Nimbus Roman No9 L", Garamond, "Apple Garamond", "ITC Garamond Narrow", "New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia, serif;
 }
 
 table {
+	table-layout: fixed;
 	display: block;
-	postion: absolute;
-	flex-direction: row;
-	top:	12.1vh;
-	/* left:	-0.15vw;
-	right:	-0.15vw; */
-	bottom:	0.25vh;
-}
-
-table.main {
+	margin:	0.5vh 0.5vw;
 	border-collapse: collapse;
 	border: none!important;
-	position: relative;
-
-font-size:calc(.95em + .2vw);
+	font-size: calc(0.8em + .1vw);
+	width: calc(100% - .2vw);
 }
 
 table.main th {
 	text-align: center;
 	border:1.5px solid black;
 	background-color: beige;
-}
-header,
-div.header,
-table.main tr:nth-child(1){
+	position: sticky;
+	top:4em;
 }
 
-header,
-div.header,
-table.main {
-	display:block;
-}
 
 table.main th, table.main td {padding: 3px;}
 
-table, th, td, tr {
+table, th, td {
 	text-align: left;
 	border:1.5px solid black;
 	word-wrap: break-word;
@@ -58,34 +44,51 @@ table, th, td, tr {
    	font-weight: normal;
    	font-style: normal;
 	line-height: initial;
-}
-table.main td img {
-	max-width: 100%;
+	overflow-wrap: break-word;
 }
 
-table.main tr {border:none;}
+
+table.main tr td {height: 20em; overflow-y: auto;}
+table.main tr th, th {max-height: 3em; height: 1em!important; overflow-y: auto;}
 table.main tr:nth-child(2n){background-color:#eee;}
 table.main tr:nth-child(2n):hover{background-color: #efef99;}
 table.main tr:nth-child(2n+1){background-color:#ddd;}
 table.main tr:nth-child(2n+1):hover{background-color: #dfdf99;}
 
 #myInput {
-  	width: 22vw;
- 	font-size: 1.3vw;
+  	width: 22em;
  	font-size:calc(1.05em + .2vw);
  	padding: 3px;
   	border: 1px solid #ddd;
   	margin:3px;
-  	display: block;
+  	display: inline-block;
+  	border: 1px solid red!important;
 }
 div.myInput {
 	display: inline-block;
+	border: 1px solid orange!important;
+}
+#hidecol{
+border: 1px solid yellow!important;
+width: max-content;
+display: inline-block;
+padding: 3px;
+}
+div.formatting {
+display: inline-block;
+border: 1px solid purple;
+	position: sticky;
+	top: 0;
+	width: max-content;
 }
 
 div.hidecol {
 	padding: 3px;
-	display: block;
+	display: inline-block;
+	width: max-content;
+	border: 1px solid white!important;
 }
+/* individual checkboxes */
 div.hideform {
 	border:1px solid black;
 	margin-left: 5px;
@@ -95,18 +98,15 @@ div.hideform {
 	display: inline-block;
 }
 
-header{
-	position: absolute;
+tr.banner:hover,
+tr.banner{
 	left: 0.5vw;
 	right: 0.5vw;
 	top: 0.5vh;
-	background-color: rgb(150, 150, 150);
+	background-color: rgb(150, 150, 150)!important;
 	padding-left: 3px;
 	padding-right: 3px;
-	margin: 0px 0px 1px 0px;
-	border-top:1.5px solid black;
-	border-left:1.5px solid black;
-	border-right:1.5px solid black;
+	height: max-content!important;
 }
 
 #overlay {
@@ -129,24 +129,16 @@ header{
   position: absolute;
   top: 52%;
   left: 50%;
-  /* font-size: 1.6em; */
-  font-size: 1.1vw;
+  font-size: calc(0.75em + .6vw);
   color: white;
   width: 90%;
   transform: translate(-52%,-54%);
 }
 
 div.table,
-div.header {
+div.footer {
 display: block;
 }
-
-table {
-overflow-y: scroll;
-overflow-x: auto;
-}
-
-
 
 div.footer {
 	position: relative;
@@ -184,111 +176,108 @@ padding-top: .13em;
 span.formlabel {
 	font-weight: 600;
 	font-style: italic;
-	font-size: 1.2em;
+	font-size: calc(.9em + .5vw);
 }
-tbody {
-	flex-grow: column;
-	flex-wrap: nowrap;
-	flex-grow: 1;
-	flex-shrink: 1;
+
+hr.break {
+width:73%;
 }
+
 /* game name */
-th.column0 td{
-	flex-basis: auto;
+th.column0,
+td.column0{
+	display: table-cell;
 }
 
 /* port name */
-th.column1 {
-	flex-basis: auto;
+
+th.column1,
+td.column1 {
+	display: table-cell;
 }
 
 /* executables */
-th.column2 {
-	flex-basis: auto;
+th.column2,
+td.column2 {
+	width: calc(4.5em + .4vw);
 	word-wrap: normal;
+	display: table-cell;
 }
 
 /* pkg name */
-th.column3 {
-	flex-basis: auto;
+th.column3,
+td.column3 {
+	display: table-cell;
 }
 
 /* type */
-th.column4 {
-	flex-basis: auto;
+th.column4,
+td.column4 {
+	display: table-cell;
 }
 
 /* subtype */
-th.column5 td{
-	flex-basis: auto;
+th.column5,
+td.column5 {
+	width: max-content;
+	word-wrap: normal;
+	overflow-wrap: break-word!important;
+	display: table-cell;
 }
 
-/* comment */
-th.column6 {
-	flex-basis: auto;
-	overflow-x: auto;
-}
-
+/* comment -- combined with long desc */
 /* long desc */
-th.column7 {
-	flex-basis: auto;
+th.column6,
+td.column6 {
 	overflow-x: auto;
+	overflow-y: auto;
+	width: calc(25.5em + .4vw);
+	display: table-cell;
 }
 
 /* supplemental */
-th.column8 {
-	flex-basis: 10%;
+th.column7,
+td.column7 {
 	overflow-x: auto;
+	overflow-y: auto;
+	display: table-cell;
 }
 
 /* help */
-th.column9 {
-	flex-basis: auto;
+th.column8,
+td.column8 {
 	overflow-x: auto;
+	overflow-y: auto;
+	width: calc(25.5em + .4vw);
+	display: table-cell;
 }
 
 /* anim */
-th.column10{
-	flex-basis: 28px;
+th.column9,
+td.column9 {
+	width: calc(11.5em + .4vw);
+	display: table-cell;
+}
+td.column9 img{
+	width: calc(11.5em + .4vw);
 }
 
 /* shot */
-th.column11{
-	flex-basis: 28px;
+th.column10,
+td.column10 {
+	width: calc(11.5em + .4vw);
+	display: table-cell;
+}
+td.column10 img{
+	width: calc(11.5em + .4vw);
 }
 
 div.table {
-	/* max-width: 100%; */
-	border: 2px solid transparent;
+	/* border: 2px solid transparent; */
 	display: block;
-}
-.button:hover {
-	margin: 3px;
-	padding:3px;
-	font-size:12px;
-	outline: none;
-	cursor: pointer;
-	text-align: center;
-	text-decoration: none;
-	color: #000;
-	border: solid 1px #e3e3e3; border-right:0px;
-	background: #eee;
-	border-top-right-radius: 5px 5px;
-	border-bottom-right-radius: 5px 5px;
-}
-.button, .button:active {
-	margin: 3px;
-	padding:3px;
-	font-size:12px;
-	outline: none;
-	cursor: pointer;
-	text-align: center;
-	text-decoration: none;
-	color: #888;
-	border: solid 1px #ddd; border-right:0px;
-	background: #c8c8c8;
-	border-top-right-radius: 5px 5px;
-	border-bottom-right-radius: 5px 5px;
+	position: relative;
+	top: calc(10vh - 0.5% + 1em);
+	width: max-content;
 }
 
 p.maint {
@@ -317,8 +306,7 @@ function FilterFunction() {
         tr[i].style.display = "none";
       }
     }
-  }
-
+ }
 }
 </script>
 <script>
@@ -376,38 +364,33 @@ function sortTable(n) {
     }
   }
 }
+</script>
+<script>
+function hide_show_table(col_name)
+{
+ var checkbox_val=document.getElementById(col_name).value;
+ if(checkbox_val=="hide")
+ {
+  var all_col=document.getElementsByClassName(col_name);
+  for(var i=0;i<all_col.length;i++)
+  {
+   all_col[i].style.display="none";
+  }
+  document.getElementById(col_name+"_head").style.display="none";
+  document.getElementById(col_name).value="show";
+ }
 
-const menu = document.getElementById('hidecol');
-const table = document.getElementById('myTable');
-const headers = [].slice.call(table.querySelectorAll('th'));
-
-headers.forEach(function (th, index) {
-    // Build the menu item
-    const li = document.createElement('li');
-    const label = document.createElement('label');
-    const checkbox = document.createElement('input');
-    checkbox.setAttribute('type', 'checkbox');
-
-    // Create the text node
-    const text = document.createTextNode(th.textContent);
-
-    label.appendChild(checkbox);
-    label.appendChild(text);
-
-    li.appendChild(label);
-    menu.appendChild(li);
-});
-
-//To toggle the column when clicking the checkbox, we have to handle the change event:
-
-headers.forEach(function(th, index) {
-    // Build the menu item
-    ...
-    // Handle the event
-    checkbox.addEventListener('change', function(e) {
-        e.target.checked ? showColumn(index) : hideColumn(index);
-    });
-});
+ else
+ {
+  var all_col=document.getElementsByClassName(col_name);
+  for(var i=0;i<all_col.length;i++)
+  {
+   all_col[i].style.display="table-cell";
+  }
+  document.getElementById(col_name+"_head").style.display="table-cell";
+  document.getElementById(col_name).value="hide";
+ }
+}
 </script>
 <script>
 function on() {
@@ -421,33 +404,6 @@ function off() {
 
 </head>
 <body>
-<header>
-<div class="header"><!-- <div class="header"> -->
-<span class="comment">A bit more detail in an easy form for those things we have in ports..</span>
-<h1>FreeBSD Games Directory</h1>
-<div class="hidecol">
-<form id="hidecol">
-  <span class="formlabel">Hide Columns:&nbsp;</span>
-  <div class="hideform"><label for="port">Port name</label><input type="checkbox" id="port" name="visibility" value="none"></div>
-  <div class="hideform"><label for="exec">Executable</label><input type="checkbox" id="exec" name="visibility" value="none"></div>
-  <div class="hideform"><label for="pkgn">Pkg name</label><input type="checkbox" id="pkgn" name="visibility" value="none"></div>
-  <div class="hideform"><label for="type">Type</label><input type="checkbox" id="type" name="visibility" value="none"></div>
-  <div class="hideform"><label for="subt">Sub-type</label><input type="checkbox" id="subt" name="visibility" value="none"></div>
-  <div class="hideform"><label for="comm">Makefile Comment</label><input type="checkbox" id="long" name="visibility" value="none"></div>
-  <div class="hideform"><label for="long">Long description</label><input type="checkbox" id="long" name="visibility" value="none"></div>
-  <div class="hideform"><label for="help">Help Output</label><input type="checkbox" id="verb" name="visibility" value="none"></div>
-  <div class="hideform"><label for="supp">Supplemental Info</label><input type="checkbox" id="verb" name="visibility" value="none"></div>
-  <div class="hideform"><label for="shot">Screenshot</label><input type="checkbox" id="shot" name="visibility" value="none"></div>
-  <div class="hideform"><label for="anim">Animation</label><input type="checkbox" id="anim" name="visibility" value="none"></div>
-</form>
-</div> <!-- hidecol -->
-
-<div class="myInput"><input type="text" id="myInput" onkeyup="FilterFunction()" placeholder="Filter for text.."></div>
-</div>
-</header>
-<br>
-<div class="table">
-<!-- <div class="buffer">&nbsp;</div> -->
 <div id="overlay" onclick="off()">
 <div id="text">
 <p class="maint">
@@ -463,21 +419,43 @@ More information about port maintainership is available at:
 </p>
 </div>
 </div>
+<div class="table">
 <table class="main" id="myTable">
 <tbody>
+<tr class="banner">
+<td colspan="11"><span class="comment">A bit more detail in an easy form for those things we have in ports..</span>
+<h1>FreeBSD Games Directory</h1>
+<div class="formatting">
+<form id="hideform">
+  <span class="formlabel">Toggle Columns:&nbsp;</span>
+  <div class="hidecol"><label for="game">Game name</label><input type="checkbox" id="column0" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+  <div class="hidecol"><label for="port">Port name</label><input type="checkbox" id="column1" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+  <div class="hidecol"><label for="exec">Executable</label><input type="checkbox" id="column2" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+  <div class="hidecol"><label for="pkgn">Pkg name</label><input type="checkbox" id="column3" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+  <div class="hidecol"><label for="type">Type</label><input type="checkbox" id="column4" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+  <div class="hidecol"><label for="subt">Sub-type</label><input type="checkbox" id="column5" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+  <div class="hidecol"><label for="long">Long description</label><input type="checkbox" id="column6" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+  <div class="hidecol"><label for="help">Help Output</label><input type="checkbox" id="column7" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+  <div class="hidecol"><label for="supp">Supplemental Info</label><input type="checkbox" id="column8" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+  <div class="hidecol"><label for="shot">Screenshot</label><input type="checkbox" id="column9" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+  <div class="hidecol"><label for="anim">Animation</label><input type="checkbox" id="column10" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+<input type="text" id="myInput" onkeyup="FilterFunction()" placeholder="Filter for text..">
+</form>
+</div>
+</td>
+</tr>
 <tr class="header">
-<th class="column0" onclick="sortTable(0)" >Game name</th>
-<th class="column1" onclick="sortTable(1)" >Port name</th>
-<th class="comumn2" onclick="sortTable(2)" >Executable(s)</th>
-<th class="column3" onclick="sortTable(3)" >Pkg name</th>
-<th class="column4" onclick="sortTable(4)" >Type</th>
-<th class="column5" onclick="sortTable(5)" >Sub-type(s)</th>
-<th class="column6" onclick="sortTable(6)" >Port: Makefile Comment</th>
-<th class="column7" onclick="sortTable(7)" >Port: Long Description</th>
-<th class="column8" onclick="sortTable(8)" >Help Output</th>
-<th class="column9" onclick="sortTable(9)" >Supplemental information</th>
-<th class="column10" onclick="sortTable(10)" >Screenshot</th>
-<th class="column11" onclick="sortTable(11)" >Animation</th>
+<th id="column0_head" onclick="sortTable(0)" >Game name</th>
+<th id="column1_head" onclick="sortTable(1)" >Port name</th>
+<th id="column2_head" onclick="sortTable(2)" >Executable(s)</th>
+<th id="column3_head" onclick="sortTable(3)" >Pkg name</th>
+<th id="column4_head" onclick="sortTable(4)" >Type</th>
+<th id="column5_head" onclick="sortTable(5)" >Sub-type(s)</th>
+<th id="column6_head" onclick="sortTable(6)" >Port: Makefile Comment, Long Description</th>
+<th id="column7_head" onclick="sortTable(7)" >Help Output</th>
+<th id="column8_head" onclick="sortTable(8)" >Supplemental information</th>
+<th id="column9_head" onclick="sortTable(9)" >Screenshot</th>
+<th id="column10_head" onclick="sortTable(10)" >Animation</th>
 </tr>
 <!-- </div> --> <!-- header -->
 

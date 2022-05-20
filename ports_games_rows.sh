@@ -81,15 +81,20 @@ subtype=""
 supplemental=""
 fi
 
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# --- Build table rows
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 echo "<tr>" >> /var/tmp/tablerows.html
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Game name
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if [ -f "./Data/$portname.txt" ]; then
-echo "<td>"$game"</td>" >> /var/tmp/tablerows.html
+echo "<td class=\"column0\">"$game"</td>" >> /var/tmp/tablerows.html
 else
-echo -n "<td>" >> /var/tmp/tablerows.html
+echo -n "<td class=\"column0\">" >> /var/tmp/tablerows.html
 echo -n "No ./Data<br>" >> /var/tmp/tablerows.html
 echo "</td>" >> /var/tmp/tablerows.html
 fi
@@ -97,14 +102,14 @@ fi
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Port name
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo -n "<td>">> /var/tmp/tablerows.html
+echo -n "<td class=\"column1\">">> /var/tmp/tablerows.html
 echo $portname >> /var/tmp/tablerows.html ; echo "$path"
 echo "</td>">> /var/tmp/tablerows.html
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Executables
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo -n "<td>">> /var/tmp/tablerows.html
+echo -n "<td class=\"column2\">">> /var/tmp/tablerows.html
 
 if [ -f "$path/pkg-plist" ]; then
 cat $path/pkg-plist | cut -w -f 2 | sed -e 's:^[^bin/]*::' |grep bin/ >> /var/tmp/temp_execfiles
@@ -137,29 +142,27 @@ echo "</td>">> /var/tmp/tablerows.html
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Pkg name
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo "<td>"$pkg"</td>" >> /var/tmp/tablerows.html
+echo "<td class=\"column3\">"$pkg"</td>" >> /var/tmp/tablerows.html
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Type
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo "<td>"$type"</td>" >> /var/tmp/tablerows.html
+echo "<td class=\"column4\">"$type"</td>" >> /var/tmp/tablerows.html
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Sub-type(s)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo "<td>"$subtype"</td>" >> /var/tmp/tablerows.html
+echo "<td class=\"column5\">"$subtype"</td>" >> /var/tmp/tablerows.html
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# --- Makefile comment
+# --- Makefile comment (combined with long descr)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo "<td>" >> /var/tmp/tablerows.html
+echo "<td class=\"column6\">" >> /var/tmp/tablerows.html
 cat $path/Makefile | grep COMMENT= | sed -e 's:COMMENT=\t::1' -e 's:COMMENT= ::1' >> /var/tmp/tablerows.html
-echo "</td>" >> /var/tmp/tablerows.html
-
+echo "<hr class=\"break\">" >> /var/tmp/tablerows.html
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Long Description
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo "<td>" >> /var/tmp/tablerows.html
 maintainer=`cat $path/Makefile | grep MAINTAINER= | sed -e 's:MAINTAINER=\t::1' -e 's:MAINTAINER= ::1'`
 if [ "$maintainer" = "ports@FreeBSD.org" ] ; then 
 echo "<span class=\"maint\">Maintainer needed <a onclick="on\(\)">(info)</a></span>" >> /var/tmp/tablerows.html
@@ -176,7 +179,7 @@ echo "</td>" >> /var/tmp/tablerows.html
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Help Output
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo "<td>" >> /var/tmp/tablerows.html
+echo "<td class=\"column7\">" >> /var/tmp/tablerows.html
 if [ -f "./Data/Help/$portname.txt" ]; then
 cat ./Data/Help/$portname.txt| sed -e 's:<:\&lt\;:g' -e 's:>:\&gt\;:g'  -e 's:\ :\&nbsp\;:g' -e 's:^-:\<br\>-:' -e 's:^*:\<br\>*:' -e 's:^$:\<br\>:' >> /var/tmp/tablerows.html
 echo "</td>" >> /var/tmp/tablerows.html
@@ -187,15 +190,15 @@ fi
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Supplemental Information
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo "<td>"$supplemental"</td>" >> /var/tmp/tablerows.html
+echo "<td class=\"column8\">"$supplemental"</td>" >> /var/tmp/tablerows.html
 
 # Lazy load is nice but distracting. loading="lazy" beside alt="altname" and such.
 # --- Screenshot
-echo "<td><img id=\"screenshot\" src=\"screenshots/$portname.png\" onerror=\"this.onerror=null; this.src='drawing.svg';\" name=\"screenshot/$portname.png\" alt=\"screenshot/$portname.png\" /></td>" >> /var/tmp/tablerows.html
+echo "<td class=\"column9\"><img id=\"screenshot\" src=\"screenshots/$portname.png\" onerror=\"this.onerror=null; this.src='drawing.svg';\" name=\"screenshot/$portname.png\" alt=\"screenshot/$portname.png\" /></td>" >> /var/tmp/tablerows.html
 
 
 # --- Animation
-echo "<td><img id=\"animation\" src=\"screenshots/$portname_anim.gif\" onerror=\"this.onerror=null; this.src='drawing.svg';\" name=\"animation/$portname.png\" alt=\"animation/$portname.png\" /></td>" >> /var/tmp/tablerows.html
+echo "<td class=\"column10\"><img id=\"animation\" src=\"screenshots/$portname_anim.gif\" onerror=\"this.onerror=null; this.src='drawing.svg';\" name=\"animation/$portname.png\" alt=\"animation/$portname.png\" /></td>" >> /var/tmp/tablerows.html
 
 echo "</tr>">> /var/tmp/tablerows.html
 done
@@ -206,6 +209,6 @@ sleep 1
 
 echo "Generating final html file concatenating 3 parts."
 
-sleep 3
+sleep 2
 
 cat games_directory_top.html /var/tmp/tablerows.html games_directory_bottom.html > games_directory.html
