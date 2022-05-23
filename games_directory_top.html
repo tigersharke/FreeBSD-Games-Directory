@@ -7,107 +7,75 @@
 .footer a:hover { color: blue; text-decoration: underline; border-bottom: none; }
 
 #myInput,
-div.formatting,
-body{
-font-size:calc(.5em + .2vw);
-font-family: "Palatino Linotype", Palatino, Palladio, "URW Palladio L", "Book Antiqua", Baskerville, "Bookman Old Style", "Bitstream Charter", "Nimbus Roman No9 L", Garamond, "Apple Garamond", "ITC Garamond Narrow", "New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia, serif;
+html,
+body {
+	font-family: "Palatino Linotype", Palatino, Palladio, "URW Palladio L", "Book Antiqua", Baskerville,
+	"Bookman Old Style", "Bitstream Charter", "Nimbus Roman No9 L", Garamond, "Apple Garamond", "ITC Garamond Narrow",
+	"New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia, serif;
 }
 
 table {
-	table-layout: fixed;
+	/* table-layout: fixed; */
 	display: block;
 	margin:	0.5vh 0.5vw;
 	border-collapse: collapse;
-	border: none!important;
 	font-size: calc(0.8em + .1vw);
 	width: calc(100% - .2vw);
 }
 
-table.main th {
+th {
 	text-align: center;
 	border:1.5px solid black;
 	background-color: beige;
-	position: sticky;
-	top:4em;
 }
 
+th, td {padding: 3px;}
 
-table.main th, table.main td {padding: 3px;}
-
-table, th, td {
-	text-align: left;
+table, th, td, tr {
 	border:1.5px solid black;
-	word-wrap: break-word;
-	white-space: pre-wrap;
 	font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter",
 	"DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
    	font-weight: normal;
    	font-style: normal;
 	line-height: initial;
 	overflow-wrap: break-word;
+	text-align: left;
+	word-wrap: break-word;
+	white-space: pre-wrap;
 }
 
 
-table.main tr td {height: 20em; overflow-y: auto;}
-table.main tr th, th {max-height: 3em; height: 1em!important; overflow-y: auto;}
-table.main tr:nth-child(2n){background-color:#eee;}
-table.main tr:nth-child(2n):hover{background-color: #efef99;}
-table.main tr:nth-child(2n+1){background-color:#ddd;}
-table.main tr:nth-child(2n+1):hover{background-color: #dfdf99;}
+tr:nth-child(2n){background-color:#eee;}
+tr:nth-child(2n):hover{background-color: #efef99;}
+tr:nth-child(2n+1){background-color:#ddd;}
+tr:nth-child(2n+1):hover{background-color: #dfdf99;}
 
 #myInput {
   	width: 22em;
- 	font-size:calc(1.05em + .2vw);
- 	padding: 3px;
+ 	font-size:calc(.8em + .2vw);
+ 	padding:  0.4px 3px;
   	border: 1px solid #ddd;
-  	margin:3px;
-  	display: inline-block;
-  	border: 1px solid red!important;
-}
-div.myInput {
-	display: inline-block;
-	border: 1px solid orange!important;
-}
-#hidecol{
-border: 1px solid yellow!important;
-width: max-content;
-display: inline-block;
-padding: 3px;
-}
-div.formatting {
-display: inline-block;
-border: 1px solid purple;
-	position: sticky;
-	top: 0;
-	width: max-content;
+  	margin: 0.25px 1px;
 }
 
-div.hidecol {
-	padding: 3px;
-	display: inline-block;
-	width: max-content;
-	border: 1px solid white!important;
-}
+
 /* individual checkboxes */
-div.hideform {
+div.hidecol {
+	font-size:calc(.8em + .2vw);
 	border:1px solid black;
-	margin-left: 5px;
-	margin-right: 5px;
+	margin: 0.25px 1px;
 	max-width: max-content;
-	padding: 3px;
-	display: inline-block;
+	padding: 0.4px 3px;
 }
-
+th.banner,
 tr.banner:hover,
 tr.banner{
-	left: 0.5vw;
-	right: 0.5vw;
-	top: 0.5vh;
-	background-color: rgb(150, 150, 150)!important;
-	padding-left: 3px;
-	padding-right: 3px;
-	height: max-content!important;
-}
+	background-color: rgb(150, 150, 150);
+	overflow-wrap: normal;
+	text-align: left;
+	word-wrap: initial;
+	white-space: initial;
+	}
 
 #overlay {
   position: fixed;
@@ -176,11 +144,11 @@ padding-top: .13em;
 span.formlabel {
 	font-weight: 600;
 	font-style: italic;
-	font-size: calc(.9em + .5vw);
+	font-size: calc(.8em + .2vw);
 }
 
 hr.break {
-width:73%;
+width:78%;
 }
 
 /* game name */
@@ -272,99 +240,12 @@ td.column10 img{
 	width: calc(11.5em + .4vw);
 }
 
-div.table {
-	/* border: 2px solid transparent; */
-	display: block;
-	position: relative;
-	top: calc(10vh - 0.5% + 1em);
-	width: max-content;
-}
-
 p.maint {
 word-wrap: normal;
 width: 100%;
 }
 </style>
-<script>
-// This works now: May 9, 2022
-function FilterFunction() {
-  // Declare variables
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
 
-  // Loop through all table rows, and hide those which don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
- }
-}
-</script>
-<script>
-function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("myTable");
-  switching = true;
-  // Set the sorting direction to ascending:
-  dir = "asc";
-  /* Make a loop that will continue until
-  no switching has been done: */
-  while (switching) {
-    // Start by saying: no switching is done:
-    switching = false;
-    rows = table.rows;
-    /* Loop through all table rows (except the
-    first, which contains table headers): */
-    for (i = 1; i < (rows.length - 1); i++) {
-      // Start by saying there should be no switching:
-      shouldSwitch = false;
-      /* Get the two elements you want to compare,
-      one from current row and one from the next: */
-      x = rows[i].getElementsByTagName("TD")[n];
-      y = rows[i + 1].getElementsByTagName("TD")[n];
-      /* Check if the two rows should switch place,
-      based on the direction, asc or desc: */
-      if (dir == "asc") {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      /* If a switch has been marked, make the switch
-      and mark that a switch has been done: */
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-      // Each time a switch is done, increase this count by 1:
-      switchcount ++;
-    } else {
-      /* If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again. */
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
-    }
-  }
-}
-</script>
 <script>
 function hide_show_table(col_name)
 {
@@ -419,30 +300,29 @@ More information about port maintainership is available at:
 </p>
 </div>
 </div>
-<div class="table">
-<table class="main" id="myTable">
-<tbody>
+<table id="myTable">
 <tr class="banner">
-<td colspan="11"><span class="comment">A bit more detail in an easy form for those things we have in ports..</span>
+<th class="banner" colspan="11">
+<span class="comment">A bit more detail in an easy form for those things we have in ports..</span>
 <h1>FreeBSD Games Directory</h1>
-<div class="formatting">
-<form id="hideform">
+<div class="hideform">
+<form id="config">
   <span class="formlabel">Toggle Columns:&nbsp;</span>
-  <div class="hidecol"><label for="game">Game name</label><input type="checkbox" id="column0" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-  <div class="hidecol"><label for="port">Port name</label><input type="checkbox" id="column1" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-  <div class="hidecol"><label for="exec">Executable</label><input type="checkbox" id="column2" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-  <div class="hidecol"><label for="pkgn">Pkg name</label><input type="checkbox" id="column3" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-  <div class="hidecol"><label for="type">Type</label><input type="checkbox" id="column4" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-  <div class="hidecol"><label for="subt">Sub-type</label><input type="checkbox" id="column5" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-  <div class="hidecol"><label for="long">Long description</label><input type="checkbox" id="column6" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-  <div class="hidecol"><label for="help">Help Output</label><input type="checkbox" id="column7" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-  <div class="hidecol"><label for="supp">Supplemental Info</label><input type="checkbox" id="column8" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-  <div class="hidecol"><label for="shot">Screenshot</label><input type="checkbox" id="column9" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-  <div class="hidecol"><label for="anim">Animation</label><input type="checkbox" id="column10" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-<input type="text" id="myInput" onkeyup="FilterFunction()" placeholder="Filter for text..">
+	<div class="hidecol"><label for="game">Game name</label><input type="checkbox" id="column0" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+	<div class="hidecol"><label for="port">Port name</label><input type="checkbox" id="column1" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+	<div class="hidecol"><label for="exec">Executable</label><input type="checkbox" id="column2" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+	<div class="hidecol"><label for="pkgn">Pkg name</label><input type="checkbox" id="column3" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+	<div class="hidecol"><label for="type">Type</label><input type="checkbox" id="column4" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+	<div class="hidecol"><label for="subt">Sub-type</label><input type="checkbox" id="column5" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+	<div class="hidecol"><label for="long">Long description</label><input type="checkbox" id="column6" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+	<div class="hidecol"><label for="help">Help Output</label><input type="checkbox" id="column7" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+	<div class="hidecol"><label for="supp">Supplemental Info</label><input type="checkbox" id="column8" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+	<div class="hidecol"><label for="shot">Screenshot</label><input type="checkbox" id="column9" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+	<div class="hidecol"><label for="anim">Animation</label><input type="checkbox" id="column10" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+	<!-- <input type="text" id="myInput" oninput="w3.advancedFilterHTML('#myTable', '.item', this.value)" class="w3-input" placeholder="Filter for text.."> -->
 </form>
 </div>
-</td>
+</th>
 </tr>
 <tr class="header">
 <th id="column0_head" onclick="sortTable(0)" >Game name</th>
