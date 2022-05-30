@@ -68,12 +68,12 @@ portname=`echo -n $path | sed -e 's:/usr/ports/games/::1'`
 # --- Parse file to fill-in data
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if [ -f "./Data/$portname.txt" ]; then
-game=`sed -l -n '/<GAME>/,/<\/GAME>/p' ./Data/$portname.txt`
-pkg=`cat ./Data/$portname.txt | sed -l -n '/<PKG>/,/<\//p;t'`
-type=`cat ./Data/$portname.txt | sed -l -n '/<TYPE>/,/<\//p;t'`
-subtype=`cat ./Data/$portname.txt | sed -l -n '/<SUBTYPE>/,/<\//p;t'`
-help=`cat ./Data/$portname.txt | sed -l -n '/<HELP>/,/<\//p;t'`
-supplemental=`cat ./Data/$portname.txt | sed -l -n '/<SUPPLEMENTAL>/,/<\//p;t'`
+game=`cat ./Data/$portname.txt | sed -n '/[<GAME>\s\S]*<\/GAME>/p'`
+pkg=`cat ./Data/$portname.txt | sed  -n '/[<PKG>\s\S]*<\/PKG>/p'`
+type=`cat ./Data/$portname.txt | sed  -n '/[<TYPE>\s\S]*<\/TYPE>/p'`
+subtype=`cat ./Data/$portname.txt | sed  -n '/[<SUBTYPE>\s\S]*<\/SUBTYPE>/p'`
+help=`cat ./Data/$portname.txt |sed  -n '/[<HELP>\s\S]*<\/HELP>/p'` 
+supplemental=`cat ./Data/$portname.txt | sed  -n '/[<SUPPLEMENTAL>\s\S]*<\/SUPPLEMENTAL>/p'`
 else
 game=""
 executables=""
@@ -101,6 +101,7 @@ echo -n "<td class=\"column0\">" >> /var/tmp/tablerows.html
 echo -n "No ./Data<br>" >> /var/tmp/tablerows.html
 echo "</td>" >> /var/tmp/tablerows.html
 fi
+game=""
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Port name
@@ -136,16 +137,19 @@ echo "</td>">> /var/tmp/tablerows.html
 # --- Pkg name
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo "<td class=\"column3\">"$pkg"</td>" >> /var/tmp/tablerows.html
+pkg=""
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Type
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo "<td class=\"column4\">"$type"</td>" >> /var/tmp/tablerows.html
+type=""
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Sub-type(s)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo "<td class=\"column5\">"$subtype"</td>" >> /var/tmp/tablerows.html
+subtype=""
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Makefile comment (combined with long descr)
@@ -157,7 +161,7 @@ echo "<hr class=\"break\">" >> /var/tmp/tablerows.html
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Long Description
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-maintainer=`cat $path/Makefile | grep MAINTAINER= | sed -e 's:MAINTAINER=\t::1' -e 's:MAINTAINER= ::1'`
+maintainer=`make -C $path -V MAINTAINER`
 if [ "$maintainer" = "ports@FreeBSD.org" ] ; then 
 echo "<span class=\"maint\">Maintainer needed <a onclick="on\(\)">(info)</a></span>" >> /var/tmp/tablerows.html
 fi
@@ -178,13 +182,16 @@ if [ -f "./Data/Help/$portname.txt" ]; then
 cat ./Data/Help/$portname.txt| sed -e 's:<:\&lt\;:g' -e 's:>:\&gt\;:g'  -e 's:\ :\&nbsp\;:g' -e 's:^-:\<br\>-:' -e 's:^*:\<br\>*:' -e 's:^$:\<br\>:' >> /var/tmp/tablerows.html
 echo "</td>" >> /var/tmp/tablerows.html
 else
+echo $help >> /var/tmp/tablerows.html
 echo "</td>" >> /var/tmp/tablerows.html
 fi
+help=""
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Supplemental Information
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo "<td class=\"column8\">"$supplemental"</td>" >> /var/tmp/tablerows.html
+supplemental=""
 
 # Lazy load is nice but distracting. loading="lazy" beside alt="altname" and such.
 # --- Screenshot
