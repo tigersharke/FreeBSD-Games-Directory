@@ -65,19 +65,22 @@ portname=`echo -n $path | sed -e 's:/usr/ports/games/::1'`
 #fi
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# --- Parse file to fill-in single line data
+# --- Parse file to fill-in data
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if [ -f "./Data/$portname.txt" ]; then
-game=`cat ./Data/$portname.txt | grep \<GAME\> | sed -e 's:<GAME>::' -e 's:<\/GAME>::'`
-pkg=`cat ./Data/$portname.txt | grep \<PKG\> | sed -e 's:<PKG>::' -e 's:<\/PKG>::'`
-type=`cat ./Data/$portname.txt | grep \<TYPE\> | sed -e 's:<TYPE>::' -e 's:<\/TYPE>::'`
-subtype=`cat ./Data/$portname.txt | grep \<SUBTYPE\> | sed -e 's:<SUBTYPE>::' -e 's:<\/SUBTYPE>::'`
-supplemental=`cat ./Data/$portname.txt | grep \<SUPPLEMENTAL\> | sed -e 's:<SUPPLEMENTAL>::' -e 's:<\/SUPPLEMENTAL>::'`
+game=`sed -l -n '/<GAME>/,/<\/GAME>/p' ./Data/$portname.txt`
+pkg=`cat ./Data/$portname.txt | sed -l -n '/<PKG>/,/<\//p;t'`
+type=`cat ./Data/$portname.txt | sed -l -n '/<TYPE>/,/<\//p;t'`
+subtype=`cat ./Data/$portname.txt | sed -l -n '/<SUBTYPE>/,/<\//p;t'`
+help=`cat ./Data/$portname.txt | sed -l -n '/<HELP>/,/<\//p;t'`
+supplemental=`cat ./Data/$portname.txt | sed -l -n '/<SUPPLEMENTAL>/,/<\//p;t'`
 else
 game=""
+executables=""
 pkg=""
 type=""
 subtype=""
+help=""
 supplemental=""
 fi
 
@@ -112,30 +115,20 @@ echo "</td>">> /var/tmp/tablerows.html
 echo -n "<td class=\"column2\">">> /var/tmp/tablerows.html
 
 if [ -f "$path/pkg-plist" ]; then
-cat $path/pkg-plist | cut -w -f 2 | sed -e 's:^[^bin/]*::' |grep bin/ >> /var/tmp/temp_execfiles
+cat $path/pkg-plist | cut -w -f 2 | grep bin/ | sed -e 's|\%||g' -e 's|^[^bin/]*||g' -e 's|bin/||g' >> /var/tmp/temp_execfiles
 for executable in `cat /var/tmp/temp_execfiles`
 do
-echo $executable | sed -e 's:bin/::g' -e 's:-:\&#8209\;:g' >> /var/tmp/tablerows.html
+echo $executable | sed -e 's:-:\&#8209\;:g' >> /var/tmp/tablerows.html
 done
 rm /var/tmp/temp_execfiles
-else echo "(Makefile)"  >> /var/tmp/tablerows.html
+else
+make -C $path -V PLIST_FILES | tr "[:space:]" "\n"| grep bin/ | sed -e 's|^[^bin/]*||g' -e 's|bin/||g' >> /var/tmp/temp_execfiles
+for executable in `cat /var/tmp/temp_execfiles`
+do
+echo $executable | sed -e 's:-:\&#8209\;:g' >> /var/tmp/tablerows.html
+done
+rm /var/tmp/temp_execfiles
 fi
-
-#else
-#cat $path/Makefile | grep -e ^PLIST_FILES=(.*\n)*' | tr "[:space:]" "\n" | grep bin/ | sed -e "s:PLIST_FILES=::1" -e "s:{PORTNAME}:portname:1" >> /var/tmp/temp_execfiles
-#cat $path/Makefile | grep ^PLIST_FILES= '.*Untracked files(.*\n)*' | tr "[:space:]" "\n" | grep bin/ | sed -e "s:PLIST_FILES=::1" -e "s:{PORTNAME}:portname:1" >> /var/tmp/temp_execfiles
-#cat $path/Makefile | grep ^PLIST_FILES= | tr "[:space:]" "\n" | grep bin/ | sed -e "s:PLIST_FILES=::1" -e "s:{PORTNAME}:portname:1" >> /var/tmp/temp_execfiles
-#for executable in `cat /var/tmp/temp_execfiles`
-#do
-#echo $executable | sed -e "s:bin/::g" >> /var/tmp/tablerows.html
-#if (executable=\$portname) 
-#then 
-#echo $portname >> /var/tmp/tablerows.html
-#else 
-#echo $executable | sed -e "s:bin/::g" >> /var/tmp/tablerows.html
-#fi
-#done
-#fi
 
 echo "</td>">> /var/tmp/tablerows.html
 
@@ -158,7 +151,8 @@ echo "<td class=\"column5\">"$subtype"</td>" >> /var/tmp/tablerows.html
 # --- Makefile comment (combined with long descr)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo "<td class=\"column6\">" >> /var/tmp/tablerows.html
-cat $path/Makefile | grep COMMENT= | sed -e 's:COMMENT=\t::1' -e 's:COMMENT= ::1' >> /var/tmp/tablerows.html
+make -C $path -V COMMENT >> /var/tmp/tablerows.html
+#cat $path/Makefile | grep COMMENT= | sed -e 's:COMMENT=\t::1' -e 's:COMMENT= ::1' >> /var/tmp/tablerows.html
 echo "<hr class=\"break\">" >> /var/tmp/tablerows.html
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Long Description

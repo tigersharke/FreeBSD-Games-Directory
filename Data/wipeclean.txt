@@ -1,0 +1,3 @@
+<GAME>wipeclean</GAME>
+<PKG>wipeclean</PKG>
+<TYPE>novelty</TYPE>
