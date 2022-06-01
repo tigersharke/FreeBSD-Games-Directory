@@ -1,3 +1,0 @@
-man acm
-
-FreeBSD manpage

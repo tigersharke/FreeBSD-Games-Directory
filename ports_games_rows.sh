@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e		# exit on error?
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Reset files to start fresh
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -15,6 +16,7 @@ if [ -f "./games_directory.html" ]; then
 rm ./games_directory.html
 fi
 
+# careful with spaces in variable assignments.
 # first in /usr/ports make index, then can make search key="game" cat="games" or something.
 # Too many <object> tags causes a massive load delay.
 # a missing ` will cause insane errors which include indicating an entirely wrong location of the error!
@@ -23,6 +25,7 @@ fi
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Get a definite list of games in /usr/ports/games
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# [ -z "$pd" ] && pd=/usr/ports
 ls -l /usr/ports/games/*/distinfo | cut -w -f 9 | sed -e 's:/distinfo::' > /var/tmp/gamelist_directory
  
 
@@ -85,9 +88,9 @@ supplemental=""
 fi
 
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Build table rows
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 echo "<tr>" >> /var/tmp/tablerows.html
 
@@ -114,22 +117,32 @@ echo "</td>">> /var/tmp/tablerows.html
 # --- Executables
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo -n "<td class=\"column2\">">> /var/tmp/tablerows.html
-
+if [ -f /var/tmp/temp_parsedfiles ]; then
+rm /var/tmp/temp_parsedfiles
+fi
+if [ -f /var/tmp/manpages ]; then
+rm /var/tmp/manpages
+fi
 if [ -f "$path/pkg-plist" ]; then
-cat $path/pkg-plist | cut -w -f 2 | grep bin/ | sed -e 's|\%||g' -e 's|^[^bin/]*||g' -e 's|bin/||g' >> /var/tmp/temp_execfiles
+cat $path/pkg-plist | cut -w -f 2 | sed -e 's|\%||g' >> /var/tmp/temp_parsedfiles
+cat /var/tmp/temp_parsedfiles | grep bin/ | sed -e 's|\%||g' -e 's|^[^bin/]*||g' -e 's|bin/||g' >> /var/tmp/temp_execfiles
 for executable in `cat /var/tmp/temp_execfiles`
 do
 echo $executable | sed -e 's:-:\&#8209\;:g' >> /var/tmp/tablerows.html
 done
 rm /var/tmp/temp_execfiles
 else
-make -C $path -V PLIST_FILES | tr "[:space:]" "\n"| grep bin/ | sed -e 's|^[^bin/]*||g' -e 's|bin/||g' >> /var/tmp/temp_execfiles
+make -C $path -V PLIST_FILES | tr "[:space:]" "\n" >> /var/tmp/temp_parsedfiles
+cat /var/tmp/temp_parsedfiles | grep bin/ | sed -e 's|^[^bin/]*||g' -e 's|bin/||g' >> /var/tmp/temp_execfiles
 for executable in `cat /var/tmp/temp_execfiles`
 do
 echo $executable | sed -e 's:-:\&#8209\;:g' >> /var/tmp/tablerows.html
 done
+if [ -f /var/tmp/temp_execfiles ]; then
 rm /var/tmp/temp_execfiles
 fi
+fi
+cat /var/tmp/temp_parsedfiles | grep man[1-9]/ | sed -e 's|\%||g' -e 's/man\/man/man/g' -e 's/[0-9]\.gz//' -e 's/\.//g' >> /var/tmp/manpages
 
 echo "</td>">> /var/tmp/tablerows.html
 
@@ -151,26 +164,42 @@ type=""
 echo "<td class=\"column5\">"$subtype"</td>" >> /var/tmp/tablerows.html
 subtype=""
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# --- Makefile comment (combined with long descr)
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# --- Makefile comment (combined with long descr + virtual category)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo "<td class=\"column6\">" >> /var/tmp/tablerows.html
-make -C $path -V COMMENT >> /var/tmp/tablerows.html
-#cat $path/Makefile | grep COMMENT= | sed -e 's:COMMENT=\t::1' -e 's:COMMENT= ::1' >> /var/tmp/tablerows.html
+[ -z "$temp" ] && temp=`make -C $path -V COMMENT`
+if [ ! -z "$temp" ]
+then
+echo $temp >> /var/tmp/tablerows.html
 echo "<hr class=\"break\">" >> /var/tmp/tablerows.html
+temp=""
+fi
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Long Description
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 maintainer=`make -C $path -V MAINTAINER`
 if [ "$maintainer" = "ports@FreeBSD.org" ] ; then 
-echo "<span class=\"maint\">Maintainer needed <a onclick="on\(\)">(info)</a></span>" >> /var/tmp/tablerows.html
+echo "<span class=\"maint\">Maintainer needed <a onclick="on\(\)">(info)</a></span><br>" >> /var/tmp/tablerows.html
 fi
 
 if [ -f "$path/pkg-descr" ]; then
-#cat $path/pkg-descr |sed -e 's:\ :\&nbsp\;:' -e 's:* :\<br\>*\&nbsp\;:' -e 's:^- :\<br\>-\&nbsp\;:' -e 's:^$:\<br\>:' -e 's:\<br\> \<br\>:\<br\>:' -e 's:^ ::' -e 's:WWW\: :\<br\> WWW\:\&nbsp\;:g' >> /var/tmp/tablerows.html
 cat $path/pkg-descr| sed -e 's:<:\&lt\;:g' -e 's:>:\&gt\;:g'  -e 's:\ :\&nbsp\;:g' -e 's:^-:\<br\>-:' -e 's:^*:\<br\>*:' -e 's:^$:\<br\>:' >> /var/tmp/tablerows.html
 else
-echo "pkg-descr missing" >> /var/tmp/tablerows.html
+echo "---pkg-descr missing---" >> /var/tmp/tablerows.html
+fi
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# --- Virtual categories
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[ -z "$vcat" ] && vcat=`make -C $path -V CATEGORIES |sed -e 's/games//g' -e 's/^ //' -e 's/ /, /g'`
+if [ ! -z "$vcat" ]
+then
+echo "<hr class=\"break\">" >> /var/tmp/tablerows.html
+echo "<span class=\"virtcat\">Virtual Categories: "$vcat"</span>" >> /var/tmp/tablerows.html
+echo >> /var/tmp/tablerows.html
+vcat=""
 fi
 echo "</td>" >> /var/tmp/tablerows.html
 
@@ -178,6 +207,10 @@ echo "</td>" >> /var/tmp/tablerows.html
 # --- Help Output
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo "<td class=\"column7\">" >> /var/tmp/tablerows.html
+if [ -f /var/tmp/manpages ]; then 
+cat /var/tmp/manpages >> /var/tmp/tablerows.html
+echo >> /var/tmp/tablerows.html
+fi
 if [ -f "./Data/Help/$portname.txt" ]; then
 cat ./Data/Help/$portname.txt| sed -e 's:<:\&lt\;:g' -e 's:>:\&gt\;:g'  -e 's:\ :\&nbsp\;:g' -e 's:^-:\<br\>-:' -e 's:^*:\<br\>*:' -e 's:^$:\<br\>:' >> /var/tmp/tablerows.html
 echo "</td>" >> /var/tmp/tablerows.html
@@ -212,4 +245,4 @@ echo "Generating final html file concatenating 3 parts."
 
 sleep 2
 
-cat games_directory_top.html /var/tmp/tablerows.html games_directory_bottom.html > games_directory.html
+cat ./games_directory_top.html /var/tmp/tablerows.html ./games_directory_bottom.html > games_directory.html

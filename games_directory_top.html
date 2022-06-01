@@ -12,6 +12,10 @@ body {
 	font-family: "Palatino Linotype", Palatino, Palladio, "URW Palladio L", "Book Antiqua", Baskerville,
 	"Bookman Old Style", "Bitstream Charter", "Nimbus Roman No9 L", Garamond, "Apple Garamond", "ITC Garamond Narrow",
 	"New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia, serif;
+	}
+body {
+	width: max-content;
+	border: none!important;
 }
 
 table {
@@ -28,11 +32,15 @@ th {
 	border:1.5px solid black;
 	background-color: beige;
 }
-
-th, td {padding: 3px;}
+tr {
+	border:1.5px solid black;
+}
+th, td {padding: 3px;
+	border:1.5px solid black;
+}
 
 table, th, td, tr {
-	border:1.5px solid black;
+	border-collapse: collapse;
 	font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter",
 	"DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
    	font-weight: normal;
@@ -66,6 +74,7 @@ div.hidecol {
 	margin: 0.25px 1px;
 	max-width: max-content;
 	padding: 0.4px 3px;
+	display: inline-block; /* seems this needs to be here along with screwy continuous line of divs to display as desired */
 }
 th.banner,
 tr.banner:hover,
@@ -148,7 +157,9 @@ span.formlabel {
 }
 
 hr.break {
-width:78%;
+	width:78%;
+	margin-top: .6em;
+	margin-bottom: .3em;
 }
 
 /* game name */
@@ -241,8 +252,8 @@ td.column10 img{
 }
 
 p.maint {
-word-wrap: normal;
-width: 100%;
+	word-wrap: normal;
+	width: 100%;
 }
 </style>
 
@@ -306,19 +317,19 @@ More information about port maintainership is available at:
 <span class="comment">A bit more detail in an easy form for those things we have in ports..</span>
 <h1>FreeBSD Games Directory</h1>
 <div class="hideform">
-<form id="config">
+<form id="config"> <!-- screwy div formatting below so it parses as one continuous line and renders as such -->
   <span class="formlabel">Toggle Columns:&nbsp;</span>
-	<div class="hidecol"><label for="game">Game name</label><input type="checkbox" id="column0" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-	<div class="hidecol"><label for="port">Port name</label><input type="checkbox" id="column1" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-	<div class="hidecol"><label for="exec">Executable</label><input type="checkbox" id="column2" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-	<div class="hidecol"><label for="pkgn">Pkg name</label><input type="checkbox" id="column3" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-	<div class="hidecol"><label for="type">Type</label><input type="checkbox" id="column4" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-	<div class="hidecol"><label for="subt">Sub-type</label><input type="checkbox" id="column5" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-	<div class="hidecol"><label for="long">Long description</label><input type="checkbox" id="column6" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-	<div class="hidecol"><label for="help">Help Output</label><input type="checkbox" id="column7" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-	<div class="hidecol"><label for="supp">Supplemental Info</label><input type="checkbox" id="column8" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-	<div class="hidecol"><label for="shot">Screenshot</label><input type="checkbox" id="column9" onchange="hide_show_table(this.id);" value="hide" Checked></div>
-	<div class="hidecol"><label for="anim">Animation</label><input type="checkbox" id="column10" onchange="hide_show_table(this.id);" value="hide" Checked></div>
+	<div class="hidecol"><label for="game">Game name</label><input type="checkbox" id="column0" onchange="hide_show_table(this.id);" value="hide" Checked></div><div
+	class="hidecol"><label for="port">Port name</label><input type="checkbox" id="column1" onchange="hide_show_table(this.id);" value="hide" Checked></div><div
+	class="hidecol"><label for="exec">Executable</label><input type="checkbox" id="column2" onchange="hide_show_table(this.id);" value="hide" Checked></div><div
+	class="hidecol"><label for="pkgn">Pkg name</label><input type="checkbox" id="column3" onchange="hide_show_table(this.id);" value="hide" Checked></div><div
+	class="hidecol"><label for="type">Type</label><input type="checkbox" id="column4" onchange="hide_show_table(this.id);" value="hide" Checked></div><div
+	class="hidecol"><label for="subt">Sub-type</label><input type="checkbox" id="column5" onchange="hide_show_table(this.id);" value="hide" Checked></div><div
+	class="hidecol"><label for="long">Long description</label><input type="checkbox" id="column6" onchange="hide_show_table(this.id);" value="hide" Checked></div><div
+	class="hidecol"><label for="help">Help Output</label><input type="checkbox" id="column7" onchange="hide_show_table(this.id);" value="hide" Checked></div><div
+	class="hidecol"><label for="supp">Supplemental Info</label><input type="checkbox" id="column8" onchange="hide_show_table(this.id);" value="hide" Checked></div><div
+	class="hidecol"><label for="shot">Screenshot</label><input type="checkbox" id="column9" onchange="hide_show_table(this.id);" value="hide" Checked></div><div
+	class="hidecol"><label for="anim">Animation</label><input type="checkbox" id="column10" onchange="hide_show_table(this.id);" value="hide" Checked></div>
 	<!-- <input type="text" id="myInput" oninput="w3.advancedFilterHTML('#myTable', '.item', this.value)" class="w3-input" placeholder="Filter for text.."> -->
 </form>
 </div>
