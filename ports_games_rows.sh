@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e		# exit on error?
+#set -e		# exit on error?
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Reset files to start fresh
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -70,14 +70,6 @@ portname=`echo -n $path | sed -e 's:/usr/ports/games/::1'`
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Parse file to fill-in data
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-if [ -f "./Data/$portname.txt" ]; then
-game=`cat ./Data/$portname.txt | sed -n '/[<GAME>\s\S]*<\/GAME>/p'`
-pkg=`cat ./Data/$portname.txt | sed  -n '/[<PKG>\s\S]*<\/PKG>/p'`
-type=`cat ./Data/$portname.txt | sed  -n '/[<TYPE>\s\S]*<\/TYPE>/p'`
-subtype=`cat ./Data/$portname.txt | sed  -n '/[<SUBTYPE>\s\S]*<\/SUBTYPE>/p'`
-help=`cat ./Data/$portname.txt |sed  -n '/[<HELP>\s\S]*<\/HELP>/p'` 
-supplemental=`cat ./Data/$portname.txt | sed  -n '/[<SUPPLEMENTAL>\s\S]*<\/SUPPLEMENTAL>/p'`
-else
 game=""
 executables=""
 pkg=""
@@ -85,8 +77,13 @@ type=""
 subtype=""
 help=""
 supplemental=""
+if [ -f "./Data/$portname.txt" ]; then
+game=`cat ./Data/$portname.txt | sed -n '/[<GAME>\s\S]*<\/GAME>/p'`
+pkg=`cat ./Data/$portname.txt | sed  -n '/[<PKG>\s\S]*<\/PKG>/p'`
+type=`cat ./Data/$portname.txt | sed  -n '/[<TYPE>\s\S]*<\/TYPE>/p'`
+subtype=`cat ./Data/$portname.txt | sed  -n '/[<SUBTYPE>\s\S]*<\/SUBTYPE>/p'`
+help=`cat ./Data/$portname.txt |sed  -n '/[<HELP>\s\S]*<\/HELP>/p'` 
 fi
-
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # --- Build table rows
@@ -129,6 +126,20 @@ cat /var/tmp/temp_parsedfiles | grep bin/ | sed -e 's|\%||g' -e 's|^[^bin/]*||g'
 for executable in `cat /var/tmp/temp_execfiles`
 do
 echo $executable | sed -e 's:-:\&#8209\;:g' >> /var/tmp/tablerows.html
+
+# Desktop entry data will be better if it can be parsed for non-redundant information or other reasons.
+# at least one game (alephone) seems to have overlaps between its game, scenarios, and game-data parts.
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~      
+# Grab data from .desktop entry if it exists.
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~      
+desktop_file=""
+verified_desktop_file=""
+desktop_file=`grep -R -l Exec\=$executable /usr/local/share/applications/* `
+
+[ ! -z "$desktop_file" ] && verified_desktop_file=`grep -l Exec\=$executable $desktop_file`
+[ ! -z "$verified_desktop_file" ] && supplemental=`cat $verified_desktop_file`
+
 done
 rm /var/tmp/temp_execfiles
 else
@@ -137,12 +148,22 @@ cat /var/tmp/temp_parsedfiles | grep bin/ | sed -e 's|^[^bin/]*||g' -e 's|bin/||
 for executable in `cat /var/tmp/temp_execfiles`
 do
 echo $executable | sed -e 's:-:\&#8209\;:g' >> /var/tmp/tablerows.html
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Grab data from .desktop entry if it exists.
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+desktop_file=""
+verified_desktop_file=""
+desktop_file=`grep -R -l Exec\=$executable /usr/local/share/applications/* `
+
+[ ! -z "$desktop_file" ] && verified_desktop_file=`grep -l Exec\=$executable $desktop_file`
+[ ! -z "$verified_desktop_file" ] && supplemental=`cat $verified_desktop_file`
+
 done
 if [ -f /var/tmp/temp_execfiles ]; then
 rm /var/tmp/temp_execfiles
 fi
 fi
-cat /var/tmp/temp_parsedfiles | grep man[1-9]/ | sed -e 's|\%||g' -e 's/man\/man/man/g' -e 's/[0-9]\.gz//' -e 's/\.//g' >> /var/tmp/manpages
+cat /var/tmp/temp_parsedfiles | grep man[1-9]/ | sed -e 's|\%||g' -e 's|share/||g' -e 's/man\/man/man/g' -e 's/[0-9]\.gz//' -e 's/\.//g' >> /var/tmp/manpages
 
 echo "</td>">> /var/tmp/tablerows.html
 

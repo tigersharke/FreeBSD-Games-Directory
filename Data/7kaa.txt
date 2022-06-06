@@ -1,6 +1,6 @@
 <GAME>7kaa</GAME>
 <PKG>7kaa</PKG>
 <TYPE>strategy</TYPE>
-<SUBTYPE>-</SUBTYPE>
-<HELP>-</HELP>
+<SUBTYPE></SUBTYPE>
+<HELP></HELP>
 <SUPPLEMENTAL>This insists to be fullscreen with no option to adjust. The config file for it may contain a solution for this.</SUPPLEMENTAL>
