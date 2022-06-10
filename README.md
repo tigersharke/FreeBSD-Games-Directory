@@ -46,6 +46,6 @@ The ports_games_rows.sh shellscript will create a hierarchy of directories: ./Im
 - /var/tmp/tablerows.html, and 
 - games_directory_bottom.html.
 
-#####View the resulting table with your web browser of choice.  
+##### View the resulting table with your web browser of choice.  
 
 ###### Testing done via firefox, other browser functionality unknown but attempt to use standards while expecting newer versions of browsers would be used.
