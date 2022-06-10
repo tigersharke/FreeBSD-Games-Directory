@@ -2,5 +2,3 @@
 <PKG>acm</PKG>
 <TYPE>sim</TYPE>
 <SUBTYPE>combat, aerial</SUBTYPE>
-<HELP>-</HELP>
-<SUPPLEMENTAL>-</SUPPLEMENTAL>

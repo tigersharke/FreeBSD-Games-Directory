@@ -1,4 +1,3 @@
 <GAME>adonthell</GAME>
 <PKG>adonthell</PKG>
 <TYPE>engine</TYPE>
-<SUBTYPE></SUBTYPE>

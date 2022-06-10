@@ -1,6 +1,3 @@
 <GAME>90secondportraits</GAME>
 <PKG>90secondportraits</PKG>
-<TYPE>-</TYPE>
-<SUBTYPE>-</SUBTYPE>
-<HELP>-</HELP>
 <SUPPLEMENTAL>-</SUPPLEMENTAL>

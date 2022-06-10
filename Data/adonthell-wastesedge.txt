@@ -1,4 +1,3 @@
 <GAME>adonthell-wastesedge</GAME>
 <PKG>adonthell-wastesedge</PKG>
 <TYPE>RPG</TYPE>
-<SUBTYPE></SUBTYPE>

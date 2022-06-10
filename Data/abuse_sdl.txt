@@ -1,4 +1,2 @@
 <GAME>abuse_sdl</GAME>
 <PKG>abuse_sdl</PKG>
-<TYPE></TYPE>
-<SUBTYPE>-</SUBTYPE>
