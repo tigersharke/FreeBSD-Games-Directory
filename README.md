@@ -32,6 +32,8 @@ Although the primary intent is to provide the directory for FreeBSD ports, the m
 
 I welcome comments and involvement though I am quite new to attempting this here on github. If I need to make adjustments to improve involvement of other FreeBSD contributors, I can do so when I know what I need to change.
 
+Email: contactme_on_github@incogneato.co 
+
 ### Use (at present)
 First obtain the content of this repo by your preferred method, then simply: ./ports_games_rows.sh
 
