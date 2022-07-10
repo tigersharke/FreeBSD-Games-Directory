@@ -7,6 +7,8 @@ This idea is a collection of screenshots, animated gifs of play, sample configur
 - Added links to places to obtain additional files for use with games or game engines.
 - Mechanism for translations of the html content.  How can game descriptions get translations?
 - Preferred zero or very limited dependencies aside from a web browser or html/css viewer/parser application.
+* Convert to proper database while continuing to allow more rudimentary editing via file and tree parsing.
+* Provide html formatted output of the database as a simple html text file.
 
 ### Ideas
 - Reasonable screenshot png, size/res: 1280x1024?  * except if lacking detail a larger screen size may provide.
